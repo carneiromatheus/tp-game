@@ -12,13 +12,15 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
-public class Room 
+import java.util.HashMap;
+
+public class Room
 {
     public String description;
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
+    private Room northExit;
+    private Room southExit;
+    private Room eastExit;
+    private Room westExit;
 
     /**
      * Create a room described "description". Initially, it has
@@ -61,6 +63,14 @@ public class Room
     public String getDescription()
     {
         return description;
+    }
+
+    public Room getExits(String direction)
+    {
+        if(direction == "north") return northExit;
+        if(direction == "east") return eastExit;
+        if(direction == "south") return southExit;
+        else return westExit;
     }
 
 }

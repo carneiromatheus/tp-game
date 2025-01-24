@@ -116,6 +116,9 @@ public class Game
         else if (commandWord.equals("look")) {
             look();
         }
+        else if (commandWord.equals("eat")) {
+            eat();
+        }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -179,6 +182,11 @@ public class Game
     }
 
     private void look() {}
+
+    private void eat()
+    {
+        System.out.println("Você já comeu e não está com fome mais.");
+    }
 
     /** 
      * "Quit" was entered. Check the rest of the command to see

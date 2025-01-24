@@ -21,6 +21,7 @@ public class Room
     private Room southExit;
     private Room eastExit;
     private Room westExit;
+    private String ExitString = " ";
 
     /**
      * Create a room described "description". Initially, it has
@@ -71,6 +72,19 @@ public class Room
         if(direction == "east") return eastExit;
         if(direction == "south") return southExit;
         else return westExit;
+    }
+
+    /**
+    *Retorna uma descrição das saidas deste Room, por exemplo ," Exits: north west @return uma descrição dass saídas disponíveis
+     */
+
+    public String getExitString()
+    {
+        if(getExits("north") != null) ExitString = ExitString + "north ";
+        if(getExits("east") != null) ExitString = ExitString + "east ";
+        if(getExits("south") != null) ExitString = ExitString + "south ";
+        if(getExits("west") != null) ExitString = ExitString + "west ";
+        return ExitString;
     }
 
 }

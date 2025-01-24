@@ -82,18 +82,6 @@ public class Game
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         printLocationInfo();
-        if(currentRoom.getExits("north") != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.getExits("east") != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.getExits("south") != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.getExits("west") != null) {
-            System.out.print("west ");
-        }
         System.out.println();
     }
 
@@ -176,18 +164,6 @@ public class Game
         else {
             currentRoom = nextRoom;
             printLocationInfo();
-            if(currentRoom.getExits("north") != null) {
-                System.out.print("north ");
-            }
-            if(currentRoom.getExits("east") != null) {
-                System.out.print("east ");
-            }
-            if(currentRoom.getExits("south") != null) {
-                System.out.print("south ");
-            }
-            if(currentRoom.getExits("west") != null) {
-                System.out.print("west ");
-            }
             System.out.println();
         }
     }
@@ -211,6 +187,6 @@ public class Game
     public void printLocationInfo()
     {
         System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
+        System.out.print("Exits:"+ currentRoom.getExitString());
     }
 }

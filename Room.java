@@ -88,4 +88,8 @@ public class Room
         return exitString;
     }
 
+    public String getLongDescription()
+    {
+        return "You are " + description + "\n" + getExitString(); 
+    }
 }

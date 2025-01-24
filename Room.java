@@ -73,6 +73,7 @@ public class Room
 
     public String getExitString()
     {
+        ExitString = "";
         if(getExits("north") != null) ExitString = ExitString + "north ";
         if(getExits("east") != null) ExitString = ExitString + "east ";
         if(getExits("south") != null) ExitString = ExitString + "south ";

@@ -13,12 +13,12 @@
  * @version 2016.02.29
  */
 import java.util.HashMap;
+import java.util.Set;
 
 public class Room
 {
     public String description;
     private HashMap<String, Room> exits;
-    private String ExitString = " ";
 
     /**
      * Cria uma sala com sua descrição.
@@ -58,27 +58,34 @@ public class Room
     }
 
     /**
-     * Retorna uma descrição das saídas deste Room,
-     * Por exemplo, "Exits: north west" 
-     * @return Uma descrição das saídas disponíveis
-     **/
-    public Room getExits(String direction)
+     * Retorna a sala de uma saída deste Room,
+     * Por exemplo, "outside"
+     * 
+     * @param Uma direção de saída
+     * @return A sala referente a direção de saída
+     */
+    public Room getExit(String direction)
     {
         return exits.get(direction);
     }
 
     /**
-     *Retorna uma descrição das saidas deste Room, por exemplo ," Exits: north west @return uma descrição dass saídas disponíveis
+     * Retorna uma descrição das saidas deste Room
+     * Por exemplo ," Exits: north west
+     * 
+     * @return uma descrição dass saídas disponíveis
      */
 
     public String getExitString()
     {
-        ExitString = "";
-        if(getExits("north") != null) ExitString = ExitString + "north ";
-        if(getExits("east") != null) ExitString = ExitString + "east ";
-        if(getExits("south") != null) ExitString = ExitString + "south ";
-        if(getExits("west") != null) ExitString = ExitString + "west ";
-        return ExitString;
+        String exitString = "Exits:";
+        Set<String> keys = exits.keySet();
+        
+        for (String exit : keys) {
+            exitString += " " + exit;
+        }
+        
+        return exitString;
     }
 
 }

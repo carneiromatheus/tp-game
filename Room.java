@@ -17,44 +17,35 @@ import java.util.HashMap;
 public class Room
 {
     public String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
+    private HashMap<String, Room> exits;
     private String ExitString = " ";
 
     /**
-     * Create a room described "description". Initially, it has
-     * no exits. "description" is something like "a kitchen" or
-     * "an open court yard".
-     * @param description The room's description.
+     * Cria uma sala com sua descrição.
+     * A descrição é algo como “uma cozinha” ou “um pátio aberto”.
+     * 
+     * Cria uma coleção para obter as saídas dessa sala.
+     * Inicialmente, ela não tem saída.
+     * 
+     * @param description A descrição da sala.
      */
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<>();
     }
 
     /**
-     * Define the exits of this room.  Every direction either leads
-     * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
+     * Define as saídas dessa sala.
+     * 
+     * @param direction Direção da saída.
+     * @param neighbor Destino da saída.
      */
-    public void setExit(String direction, Room neighbour)
+    public void setExit(String direction, Room neighbor) 
     {
-        if(direction == "north") {
-             northExit = neighbour;
-        }
-        if(direction == "east") {
-            eastExit = neighbour;
-        }
-        if(direction == "south") {
-            southExit = neighbour;
-        }
-        if(direction == "west") {
-            westExit = neighbour;
+        if (direction != null && neighbor != null)
+        {
+            exits.put(direction, neighbor);
         }
     }
 
@@ -66,16 +57,18 @@ public class Room
         return description;
     }
 
+    /**
+     * Retorna uma descrição das saídas deste Room,
+     * Por exemplo, "Exits: north west" 
+     * @return Uma descrição das saídas disponíveis
+     **/
     public Room getExits(String direction)
     {
-        if(direction == "north") return northExit;
-        if(direction == "east") return eastExit;
-        if(direction == "south") return southExit;
-        else return westExit;
+        return exits.get(direction);
     }
 
     /**
-    *Retorna uma descrição das saidas deste Room, por exemplo ," Exits: north west @return uma descrição dass saídas disponíveis
+     *Retorna uma descrição das saidas deste Room, por exemplo ," Exits: north west @return uma descrição dass saídas disponíveis
      */
 
     public String getExitString()

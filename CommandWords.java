@@ -38,4 +38,14 @@ public class CommandWords
         // if we get here, the string was not found in the commands
         return false;
     }
+
+    public String getValitCommandWords()
+    {
+        String validCommandWords = "";
+        for(int i = 0; i < validCommands.length; i++)
+        {
+            validCommandWords = validCommandWords + " " + validCommands[i];
+        }
+        return validCommandWords;
+    }
 }

@@ -42,19 +42,19 @@ public class Room
      * @param south The south exit.
      * @param west The west exit.
      */
-    public void setExits(Room north, Room east, Room south, Room west) 
+    public void setExit(String direction, Room neighbour)
     {
-        if(north != null) {
-            northExit = north;
+        if(direction == "north") {
+             northExit = neighbour;
         }
-        if(east != null) {
-            eastExit = east;
+        if(direction == "east") {
+            eastExit = neighbour;
         }
-        if(south != null) {
-            southExit = south;
+        if(direction == "south") {
+            southExit = neighbour;
         }
-        if(west != null) {
-            westExit = west;
+        if(direction == "west") {
+            westExit = neighbour;
         }
     }
 
@@ -80,6 +80,7 @@ public class Room
 
     public String getExitString()
     {
+        ExitString = "";
         if(getExits("north") != null) ExitString = ExitString + "north ";
         if(getExits("east") != null) ExitString = ExitString + "east ";
         if(getExits("south") != null) ExitString = ExitString + "south ";

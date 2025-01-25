@@ -8,20 +8,50 @@
 
 public class Item
 {
+    private String itemName;
     private String itemDescription;
-
-    /**
-     * Constructor - initialise the class item.
+    private double itemWeight;
+    /*
+     * Set item description
+     * 
      */
-    public Item(String description)
+    
+    public Item(String itemName)
     {
-        itemDescription = description;
+        this.itemName = itemName;
+    }
+    
+    public void setItemDescription(String itemDescription)
+    {
+        this.itemDescription = itemDescription;
     }
     /*
      * Returns item description
      */
-    public String getItemDescription() {
+    public String getItemDescription()
+    {
         return itemDescription;
     }
+    /*
+     * Set item weight
+     */
+    public void setItemWeight(double itemWeight)
+    {
+        this.itemWeight = itemWeight;
+    }
 
+    public double getItemWeight()
+    {
+        return itemWeight;
+    }
+
+    public void setItemName(String itemName)
+    {
+        this.itemName = itemName;
+    }
+
+    public String getItemName()
+    {
+        return itemName;
+    }
 }

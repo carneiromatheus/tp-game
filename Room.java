@@ -12,6 +12,7 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Room
 {
     public String description;
     private HashMap<String, Room> exits;
-
+    private ArrayList<Item> items;
     /**
      * Cria uma sala com sua descrição.
      * A descrição é algo como “uma cozinha” ou “um pátio aberto”.
@@ -33,6 +34,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<>();
+        items = new ArrayList<>();
     }
 
     /**
@@ -90,11 +92,33 @@ public class Room
 
     public String getLongDescription()
     {
-        return "You are " + description + "\n" + getExitString(); 
+        return "You are " + description + "\n" + getExitString() + "\nItems:" + getItemString(); 
     }
 
-    public String addItem(String itemName, String itemDis)
+    public void addItem(String itemName, String itemDescription, double itemWeight)
     {
-        Item itemName = new Item(itemDescription);
+        Item item = new Item(itemName);
+        item.setItemWeight(itemWeight);
+        item.setItemDescription(itemDescription);
+        items.add(item);
+    }
+    
+    public String getItemString()
+    { 
+        String itemString = "";
+        if(items.size() > 1) 
+        {
+            for(Item item: items)
+            {
+                itemString = itemString + "\n" + item.getItemName() + "\nDescription:" + item.getItemDescription() + "\n";
+            }
+        
+            return itemString;
+        }
+        else
+        {
+            return "There are no items in this room!";    
+        }
+           
     }
 }

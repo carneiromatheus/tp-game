@@ -49,7 +49,8 @@ public class Game
         outside.setExit("west", pub);
 
         theater.setExit("west", outside);
-
+        theater.addItem("Capítulo perdido", "Este capítulo contém segredos sobre as runas", 100);
+        theater.addItem("Pedaço de papel", "Um pedaço de papel jogado no chão", 10);
         pub.setExit("east", outside);
 
         lab.setExit("north", outside);

@@ -92,4 +92,9 @@ public class Room
     {
         return "You are " + description + "\n" + getExitString(); 
     }
+
+    public String addItem(String itemName, String itemDis)
+    {
+        Item itemName = new Item(itemDescription);
+    }
 }

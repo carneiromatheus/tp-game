@@ -1,3 +1,4 @@
+import java.util.Stack;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,6 +20,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Stack<Room> roomLog;
 
     /**
      * Create the game and initialise its internal map.
@@ -27,6 +29,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        roomLog = new Stack<>();
     }
 
     /**
@@ -102,7 +105,8 @@ public class Game
     {
         boolean wantToQuit = false;
 
-        if(command.isUnknown()) {
+        if(command.isUnknown()) 
+        {
             System.out.println("I don't know what you mean...");
             return false;
         }
@@ -115,13 +119,16 @@ public class Game
             goRoom(command);
         }
         else if (commandWord.equals("look")) {
-            look();
+            look(command);
         }
         else if (commandWord.equals("eat")) {
             eat();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
+        }
+        else if (commandWord.equals("back")) {
+            back(command);
         }
 
         return wantToQuit;
@@ -147,7 +154,7 @@ public class Game
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
      */
-    private void goRoom(Command command) 
+    private void goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
@@ -176,13 +183,41 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            currentRoom = nextRoom;
+            roomLog.push(currentRoom);
+            currentRoom = nextRoom; 
             printLocationInfo();
             System.out.println();
         }
     }
 
-    private void look() {}
+    private void look(Command command) 
+    {
+        if(command.hasSecondWord())
+        {
+            System.out.println("I don't know what you mean...");
+            return;
+        }
+        else printLocationInfo();
+    }
+
+    private void back(Command command)
+    {
+        if(command.hasSecondWord())
+        {
+            System.out.println("I don't know what you mean...");
+            return;
+        }
+        else
+        {
+            if(roomLog.empty()) System.out.print("You can't go further back");
+            else
+            {   
+                currentRoom = roomLog.pop();
+                printLocationInfo();
+                System.out.println();
+            }
+        }
+    }
 
     private void eat()
     {

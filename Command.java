@@ -37,7 +37,7 @@ public class Command
 
     /**
      * Return the command word (the first word) of this command. If the
-     * command was not understood, the result is null.
+     * command was not understood, the re sult is null.
      * @return The command word.
      */
     public String getCommandWord()

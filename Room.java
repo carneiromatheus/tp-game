@@ -36,6 +36,10 @@ public class Room
         exits = new HashMap<>();
         items = new ArrayList<>();
     }
+    public Room ()
+    {
+        
+    }
 
     /**
      * Define as saídas dessa sala.

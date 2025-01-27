@@ -45,11 +45,6 @@ public class Item
         return itemWeight;
     }
 
-    public void setItemName(String itemName)
-    {
-        this.itemName = itemName;
-    }
-
     public String getItemName()
     {
         return itemName;

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Player
 {
     // variáveis de instância - substitua o exemplo abaixo pelo seu próprio
-    private String name;
+    private String playerName;
     private Game game;
     private Room location;
     private ArrayList<Item> items;
@@ -19,8 +19,8 @@ public class Player
      */
     public Player(String name, Game game)
     {
-        this.name = name;
-        this.game = game;
+        playerName = name;
+        game = game;
         game.getCurrentRoom();
         items = new ArrayList<>();
     }
@@ -28,6 +28,11 @@ public class Player
     public void setPlayerGame(Game game)
     {
         this.game = game;
+    }
+    
+    public String getPlayerName()
+    {
+        return playerName;
     }
     
     public void setLocation()
@@ -46,4 +51,21 @@ public class Player
         Item item = location.getItem(itemName);
         items.remove(item);
     }
+    
+    public String getItemString()
+    {
+        String itemString = "";
+        if(items.size() == 0) 
+        {
+            itemString = "The player has no items!";
+            return itemString;
+        }
+        for(Item item: items) 
+        {
+            itemString = itemString+" "+ item.getItemName();    
+        }
+        return itemString;
+    }
 }
+    
+    

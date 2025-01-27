@@ -36,11 +36,7 @@ public class Room
         exits = new HashMap<>();
         items = new ArrayList<>();
     }
-    public Room ()
-    {
-        
-    }
-
+    
     /**
      * Define as saídas dessa sala.
      * 
@@ -107,6 +103,11 @@ public class Room
         items.add(item);
     }
     
+    public void reciveItem(Item item)
+    {
+        items.add(item);
+    }
+    
     public String getItemString()
     { 
         String itemString = "";
@@ -133,5 +134,13 @@ public class Room
             if(item.getItemName().equals(itemName)) return item;
         }   
         return null;
+    }
+    
+    public void removeItem(String itemName)
+    {
+        for(Item item: items)
+        {
+            if(item.getItemName() == itemName) items.remove(item);
+        }
     }
 }

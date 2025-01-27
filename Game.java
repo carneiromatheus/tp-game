@@ -54,8 +54,8 @@ public class Game
         outside.setExit("west", pub);
 
         theater.setExit("west", outside);
-        theater.addItem("Capítulo perdido", "Este capítulo contém segredos sobre as runas", 100);
-        theater.addItem("Pedaço de papel", "Um pedaço de papel jogado no chão", 10);
+        theater.addItem("Capítulo", "Este capítulo contém segredos sobre as runas", 100);
+        theater.addItem("Papel", "Um pedaço de papel jogado no chão", 10);
         pub.setExit("east", outside);
     
         lab.setExit("north", outside);
@@ -115,27 +115,14 @@ public class Game
         }
 
         String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
-            printHelp();
-        }
-        else if (commandWord.equals("go")) {
-            goRoom(command);
-        }
-        else if (commandWord.equals("look")) {
-            look(command);
-        }
-        else if (commandWord.equals("eat")) {
-            eat();
-        }
-        else if (commandWord.equals("quit")) {
-            wantToQuit = quit(command);
-        }
-        else if (commandWord.equals("back")) {
-            back(command);
-        }
-        if (commandWord.equals("take")) {
-            take(command);
-        }
+        if (commandWord.equals("help")) printHelp();
+        else if (commandWord.equals("go")) goRoom(command);
+        else if (commandWord.equals("look")) look(command);
+        else if (commandWord.equals("eat")) eat();
+        else if (commandWord.equals("quit")) wantToQuit = quit(command);
+        else if (commandWord.equals("back")) back(command);
+        else if (commandWord.equals("take")) take(command);
+        else if (commandWord.equals("items")) items(command);
         
         return wantToQuit;
     }
@@ -241,6 +228,13 @@ public class Game
     {
         String itemName = command.getSecondWord();
         player.dropItem(itemName);
+    }
+    
+    public void items(Command command)
+    {
+        System.out.println("Player "+player.getPlayerName());
+        System.out.print("Items: "+player.getItemString());
+        System.out.println();
     }
 
     /** 

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Escreva uma descrição da classe Player aqui.
@@ -11,6 +12,7 @@ public class Player
     private String name;
     private Game game;
     private Room location;
+    private ArrayList<Item> items;
     
     /**
      * Construtor para objetos da classe Player
@@ -20,6 +22,7 @@ public class Player
         this.name = name;
         this.game = game;
         game.getCurrentRoom();
+        items = new ArrayList<>();
     }
     
     public void setPlayerGame(Game game)
@@ -30,5 +33,17 @@ public class Player
     public void setLocation()
     {
         location = game.getCurrentRoom();
+    }
+    
+    public void takeItem(String itemName)
+    {
+        Item item = location.getItem(itemName);
+        items.add(item);
+    }
+    
+    public void dropItem(String itemName)
+    {
+        Item item = location.getItem(itemName);
+        items.remove(item);
     }
 }

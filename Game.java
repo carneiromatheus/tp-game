@@ -133,7 +133,10 @@ public class Game
         else if (commandWord.equals("back")) {
             back(command);
         }
-
+        if (commandWord.equals("take")) {
+            take(command);
+        }
+        
         return wantToQuit;
     }
 
@@ -226,6 +229,18 @@ public class Game
     private void eat()
     {
         System.out.println("Você já comeu e não está com fome mais.");
+    }
+    
+    private void take(Command command)
+    {
+        String itemName = command.getSecondWord();
+        player.takeItem(itemName);
+    }
+    
+    private void drop(Command command)
+    {
+        String itemName = command.getSecondWord();
+        player.dropItem(itemName);
     }
 
     /** 

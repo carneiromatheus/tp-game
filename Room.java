@@ -125,4 +125,13 @@ public class Room
         }
            
     }
+    
+    public Item getItem(String itemName) 
+    {
+        for(Item item: items) 
+        {
+            if(item.getItemName().equals(itemName)) return item;
+        }   
+        return null;
+    }
 }

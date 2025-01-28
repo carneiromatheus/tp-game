@@ -32,15 +32,19 @@ public class Game
         theater.setExit("west", outside);
 
         pub.setExit("east", outside);
+
         lab.setExit("north", outside);
         lab.setExit("east", office);
+
         office.setExit("west", lab);
 
         outside.addItem(new Item("a rusty key", 0.5));
         outside.addItem(new Item("a map", 0.2));
+
         lab.addItem(new Item("a mysterious book", 1.2));
         lab.addItem(new Item("a broken computer", 3.5));
         lab.addItem(new Item("a heavy box", 7.5));
+        lab.addItem(new Item("a magic mushroom", 0.3));
 
         currentRoom = outside;
     }
@@ -81,7 +85,7 @@ public class Game
         if (commandWord.equals("help")) printHelp();
         else if (commandWord.equals("go")) goRoom(command);
         else if (commandWord.equals("look")) look(command);
-        else if (commandWord.equals("eat")) eat();
+        else if (commandWord.equals("eat")) eat(command);
         else if (commandWord.equals("quit")) wantToQuit = quit(command);
         else if (commandWord.equals("back")) back(command);
         else if (commandWord.equals("take")) take(command);
@@ -225,9 +229,42 @@ public class Game
         }
     }
 
-    private void eat()
+    private void eat(Command command)
     {
-        System.out.println("Você já comeu e não está com fome mais.");
+        if (!command.hasSecondWord())
+        {
+            System.out.println("Eat what?");
+            return;
+        }
+
+        String itemName = command.getSecondWord();
+        Item itemToEat = null;
+
+        for (Item item : player.getInventory())
+        {
+            if (item.getDescription().equalsIgnoreCase(itemName))
+            {
+                itemToEat = item;
+                break;
+            }
+        }
+
+        if (itemToEat == null)
+        {
+            System.out.println("You don't have that item to eat!");
+            return;
+        }
+
+        if (itemToEat.getDescription().equalsIgnoreCase("a magic mushroom"))
+        {
+            player.setMaxWeight(player.getMaxWeight() + 5.0);
+            player.removeItemFromInventory(itemToEat);
+            System.out.println("You ate the magic mushroom. You carrying increased to " + player.getMaxWeight() + "kg");
+        }
+        else
+        {
+            System.out.println("You can't eat " + itemToEat.getDescription() + ".");
+        }
     }
 
     private void items(Command command)

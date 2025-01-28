@@ -141,7 +141,7 @@ public class Game
         Room currentRoom = player.getCurrentRoom();
 
         Item itemToTake = null;
-        
+
         for (Item item : currentRoom.getItems())
         {
             if (item.getDescription().equalsIgnoreCase(itemName))
@@ -162,7 +162,7 @@ public class Game
             System.out.println("You picked up: " + itemToTake.getDetails());
         }
     }
-    
+
     public void drop(Command command)
     {
         if(!command.hasSecondWord())
@@ -170,11 +170,11 @@ public class Game
             System.out.println("Drop what?");
             return;
         }
-        
+
         String itemName = command.getSecondWord();
-        
+
         Item itemToDrop = null;
-        
+
         for (Item item : player.getInventory())
         {
             if (item.getDescription().equalsIgnoreCase(itemName))
@@ -183,7 +183,7 @@ public class Game
                 break;
             }
         }
-        
+
         if (itemToDrop == null)
         {
             System.out.println("You don't have such an item!");

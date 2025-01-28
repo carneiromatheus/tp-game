@@ -1,52 +1,26 @@
-
-/**
- * This class is used to recognize items and objects that can be used by the player.
- *
- * @author  Augusto Henrique
- * @version 2025.01.24
- */
-
 public class Item
 {
-    private String itemName;
-    private String itemDescription;
-    private double itemWeight;
-    /*
-     * Set item description
-     * 
-     */
+    private String description;
+    private double weight; 
     
-    public Item(String itemName)
+    public Item(String description, double weight)
     {
-        this.itemName = itemName;
+        this.description = description;
+        this.weight = weight;
     }
     
-    public void setItemDescription(String itemDescription)
+    public String getDescription()
     {
-        this.itemDescription = itemDescription;
-    }
-    /*
-     * Returns item description
-     */
-    public String getItemDescription()
-    {
-        return itemDescription;
-    }
-    /*
-     * Set item weight
-     */
-    public void setItemWeight(double itemWeight)
-    {
-        this.itemWeight = itemWeight;
+        return description;
     }
 
-    public double getItemWeight()
+    public double getWeight()
     {
-        return itemWeight;
+        return weight;
     }
-
-    public String getItemName()
+    
+    public String getDetails()
     {
-        return itemName;
+        return description + " (" + weight + "kg)";
     }
 }

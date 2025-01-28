@@ -1,146 +1,73 @@
-/**
- * Class Room - a room in an adventure game.
- *
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
- *
- * A "Room" represents one location in the scenery of the game.  It is 
- * connected to other rooms via exits.  The exits are labelled north, 
- * east, south, west.  For each direction, the room stores a reference
- * to the neighboring room, or null if there is no exit in that direction.
- * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
- */
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class Room
 {
     public String description;
     private HashMap<String, Room> exits;
     private ArrayList<Item> items;
-    /**
-     * Cria uma sala com sua descrição.
-     * A descrição é algo como “uma cozinha” ou “um pátio aberto”.
-     * 
-     * Cria uma coleção para obter as saídas dessa sala.
-     * Inicialmente, ela não tem saída.
-     * 
-     * @param description A descrição da sala.
-     */
+
     public Room(String description) 
     {
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
     }
-    
-    /**
-     * Define as saídas dessa sala.
-     * 
-     * @param direction Direção da saída.
-     * @param neighbor Destino da saída.
-     */
+
     public void setExit(String direction, Room neighbor) 
     {
-        if (direction != null && neighbor != null)
-        {
-            exits.put(direction, neighbor);
-        }
+        exits.put(direction, neighbor);
     }
 
-    /**
-     * @return The description of the room.
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-
-    /**
-     * Retorna a sala de uma saída deste Room,
-     * Por exemplo, "outside"
-     * 
-     * @param Uma direção de saída
-     * @return A sala referente a direção de saída
-     */
     public Room getExit(String direction)
     {
         return exits.get(direction);
     }
 
-    /**
-     * Retorna uma descrição das saidas deste Room
-     * Por exemplo ," Exits: north west
-     * 
-     * @return uma descrição dass saídas disponíveis
-     */
+    public void addItem(Item item)
+    {
+        items.add(item);
+    }
+    
+    public void removeItem(Item item)
+    {
+        items.remove(item);
+    }
+
+    public ArrayList<Item> getItems()
+    {
+        return items;
+    }
+
+    public String getLongDescription() 
+    {
+        StringBuilder description = new StringBuilder("You are " + this.description + ".\n");
+        description.append(getExitString());
+
+        if (!items.isEmpty()) 
+        {
+            description.append("\nYou see here: ");
+
+            for (Item item : items) 
+            {
+                description.append(item.getDetails()).append(", ");
+            }
+
+            description.setLength(description.length() - 2);
+        }
+
+        return description.toString();
+    }
 
     public String getExitString()
     {
-        String exitString = "Exits:";
-        Set<String> keys = exits.keySet();
-        
-        for (String exit : keys) {
-            exitString += " " + exit;
-        }
-        
-        return exitString;
-    }
+        StringBuilder exitString = new StringBuilder("Exits:");
 
-    public String getLongDescription()
-    {
-        return "You are " + description + "\n" + getExitString() + "\nItems:" + getItemString(); 
-    }
+        for (String direction : exits.keySet())
+        {
+            exitString.append(" ").append(direction);
+        }
 
-    public void addItem(String itemName, String itemDescription, double itemWeight)
-    {
-        Item item = new Item(itemName);
-        item.setItemWeight(itemWeight);
-        item.setItemDescription(itemDescription);
-        items.add(item);
-    }
-    
-    public void reciveItem(Item item)
-    {
-        items.add(item);
-    }
-    
-    public String getItemString()
-    { 
-        String itemString = "";
-        if(items.size() > 1) 
-        {
-            for(Item item: items)
-            {
-                itemString = itemString + "\n" + item.getItemName() + "\nDescription:" + item.getItemDescription() + "\n";
-            }
-        
-            return itemString;
-        }
-        else
-        {
-            return "There are no items in this room!";    
-        }
-           
-    }
-    
-    public Item getItem(String itemName) 
-    {
-        for(Item item: items) 
-        {
-            if(item.getItemName().equals(itemName)) return item;
-        }   
-        return null;
-    }
-    
-    public void removeItem(String itemName)
-    {
-        for(Item item: items)
-        {
-            if(item.getItemName() == itemName) items.remove(item);
-        }
+        return exitString.toString();
     }
 }

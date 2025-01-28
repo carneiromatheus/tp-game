@@ -1,71 +1,55 @@
 import java.util.ArrayList;
 
-/**
- * Escreva uma descrição da classe Player aqui.
- * 
- * @author (seu nome) 
- * @version (um número da versão ou uma data)
- */
 public class Player
 {
-    // variáveis de instância - substitua o exemplo abaixo pelo seu próprio
-    private String playerName;
-    private Game game;
-    private Room location;
-    private ArrayList<Item> items;
-    
-    /**
-     * Construtor para objetos da classe Player
-     */
-    public Player(String name, Game game)
+    private Room currentRoom;
+    private ArrayList<Item> inventory;
+
+    public Player(Room startingRoom)
     {
-        playerName = name;
-        game = game;
-        game.getCurrentRoom();
-        items = new ArrayList<>();
+        this.currentRoom = startingRoom;
+        this.inventory = new ArrayList<>();
     }
-    
-    public void setPlayerGame(Game game)
+
+    public Room getCurrentRoom()
     {
-        this.game = game;
+        return currentRoom;
     }
-    
-    public String getPlayerName()
+
+    public void setCurrentRoom(Room newRoom)
     {
-        return playerName;
+        currentRoom = newRoom;
     }
-    
-    public void setLocation()
+
+    public void addItemToInventory(Item item)
     {
-        location = game.getCurrentRoom();
+        inventory.add(item);
     }
-    
-    public void takeItem(String itemName)
+
+    public void removeItemFromInventory(Item item)
     {
-        Item item = location.getItem(itemName);
-        items.add(item);
+        inventory.remove(item);
     }
-    
-    public void dropItem(String itemName)
+
+    public ArrayList<Item> getInventory()
     {
-        Item item = location.getItem(itemName);
-        items.remove(item);
+        return inventory;
     }
-    
-    public String getItemString()
+
+    public String getInventoryDescription()
     {
-        String itemString = "";
-        if(items.size() == 0) 
+        if (inventory.isEmpty())
         {
-            itemString = "The player has no items!";
-            return itemString;
+            return "You inventory is empty.";
         }
-        for(Item item: items) 
+
+        StringBuilder inventoryDescription = new StringBuilder("You are carrying:");
+        
+        for (Item item : inventory)
         {
-            itemString = itemString+" "+ item.getItemName();    
+            inventoryDescription.append("\n- ").append(item.getDetails());
         }
-        return itemString;
+        
+        return inventoryDescription.toString();
     }
 }
-    
-    

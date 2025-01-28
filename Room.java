@@ -41,11 +41,11 @@ public class Room
 
     public String getLongDescription() 
     {
-        StringBuilder description = new StringBuilder("You are " + this.description + ".\n");
+        StringBuilder description = new StringBuilder("You are " + this.description + ".");
 
         if (!items.isEmpty()) 
         {
-            description.append("You see here: ");
+            description.append("\nYou see here: ");
 
             for (Item item : items) 
             {
@@ -53,9 +53,10 @@ public class Room
             }
 
             description.setLength(description.length() - 2);
+            description.append(".");
         }
 
-        description.append(".\n").append(getExitString());
+        description.append("\n").append(getExitString());
 
         return description.toString();
     }

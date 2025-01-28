@@ -130,7 +130,7 @@ public class Game
         else printLocationInfo();
     }
 
-    public void take(Command command)
+    private void take(Command command)
     {
         if(!command.hasSecondWord())
         {
@@ -174,7 +174,7 @@ public class Game
         }
     }
 
-    public void drop(Command command)
+    private void drop(Command command)
     {
         if(!command.hasSecondWord())
         {
@@ -232,7 +232,13 @@ public class Game
 
     private void items(Command command)
     {
-        System.out.println();
+        if(command.hasSecondWord()) {
+            System.out.println("I don't know what you mean...");
+            return;
+        }
+        else {
+            System.out.println(player.getInventoryDescription());
+        }
     }
 
     private boolean quit(Command command) 

@@ -46,32 +46,36 @@ public class Player
         }
 
         StringBuilder inventoryDescription = new StringBuilder("You are carrying:");
-        
+
         for (Item item : inventory)
         {
-            inventoryDescription.append("\n- ").append(item.getDetails());
+            inventoryDescription.append("\n- ").append(item.getDetails()).append(";");
         }
-        
+
+        inventoryDescription.setLength(inventoryDescription.length() - 1);
+        inventoryDescription.append(".");
+        inventoryDescription.append("\nTotal weight: ").append(getCurrentWeight()).append("kg");
+
         return inventoryDescription.toString();
     }
-    
+
     public double getCurrentWeight()
     {
         double totalWeight = 0;
-        
+
         for (Item item : inventory)
         {
             totalWeight += item.getWeight();
         }
-        
+
         return totalWeight;
     }
-    
+
     public void setMaxWeight(double maxWeight)
     {
         this.maxWeight = maxWeight;
     }
-    
+
     public double getMaxWeight()
     {
         return maxWeight;

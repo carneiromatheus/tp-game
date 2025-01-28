@@ -4,11 +4,13 @@ public class Player
 {
     private Room currentRoom;
     private ArrayList<Item> inventory;
+    private double maxWeight;
 
     public Player(Room startingRoom)
     {
         this.currentRoom = startingRoom;
         this.inventory = new ArrayList<>();
+        this.maxWeight = 10.0;
     }
 
     public Room getCurrentRoom()
@@ -51,5 +53,27 @@ public class Player
         }
         
         return inventoryDescription.toString();
+    }
+    
+    public double getCurrentWeight()
+    {
+        double totalWeight = 0;
+        
+        for (Item item : inventory)
+        {
+            totalWeight += item.getWeight();
+        }
+        
+        return totalWeight;
+    }
+    
+    public void setMaxWeight(double maxWeight)
+    {
+        this.maxWeight = maxWeight;
+    }
+    
+    public double getMaxWeight()
+    {
+        return maxWeight;
     }
 }

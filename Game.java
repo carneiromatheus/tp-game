@@ -40,6 +40,7 @@ public class Game
         outside.addItem(new Item("a map", 0.2));
         lab.addItem(new Item("a mysterious book", 1.2));
         lab.addItem(new Item("a broken computer", 3.5));
+        lab.addItem(new Item("a heavy box", 7.5));
 
         currentRoom = outside;
     }
@@ -157,9 +158,19 @@ public class Game
         }
         else
         {
-            player.addItemToInventory(itemToTake);
-            currentRoom.removeItem(itemToTake);
-            System.out.println("You picked up: " + itemToTake.getDetails());
+            double currentWeight = player.getCurrentWeight();
+
+            if (currentWeight + itemToTake.getWeight() <= player.getMaxWeight())
+            {
+                player.addItemToInventory(itemToTake);
+                currentRoom.removeItem(itemToTake);
+                System.out.println("You picked up: " + itemToTake.getDetails());
+            }
+            else
+            {
+                System.out.println("You can't carry " + itemToTake.getDescription() + ". It's too heavy!");
+            }
+
         }
     }
 

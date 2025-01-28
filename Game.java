@@ -64,9 +64,21 @@ public class Game
 
     private void printWelcome()
     {
-        System.out.println("\nWelcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.\n");
+        System.out.println("\nABIN (Agência Brasileira de Inteligência)");
+        System.out.println("""
+        
+        Arquivo: Carmen Sandiego: Operação Brasil
+        
+        Bem vindo, Agente,
+        
+        Você foi encarregado de capturar a ladra internacional Carmen Sandiego, que roubou a
+        Joia Imperial Brasileira (parte da coroa de Dom Pedro II). Ela está escondida em uma
+        das grandes cidades brasileiras.
+        
+        Você precisa seguir suas pistas, interagir com informantes, e capturá-la antes que ela
+        fuja do país para sempre.
+        """);
+        System.out.println("Digite 'help' se você precisar de ajuda.\n");
         printLocationInfo();
         System.out.println();
     }

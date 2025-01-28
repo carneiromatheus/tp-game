@@ -28,7 +28,7 @@ public class Room
     {
         items.add(item);
     }
-    
+
     public void removeItem(Item item)
     {
         items.remove(item);
@@ -42,11 +42,10 @@ public class Room
     public String getLongDescription() 
     {
         StringBuilder description = new StringBuilder("You are " + this.description + ".\n");
-        description.append(getExitString());
 
         if (!items.isEmpty()) 
         {
-            description.append("\nYou see here: ");
+            description.append("You see here: ");
 
             for (Item item : items) 
             {
@@ -55,6 +54,8 @@ public class Room
 
             description.setLength(description.length() - 2);
         }
+
+        description.append(".\n").append(getExitString());
 
         return description.toString();
     }

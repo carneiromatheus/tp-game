@@ -24,8 +24,8 @@ public class Parser
         Scanner tokenizer = new Scanner(inputLine);
         if(tokenizer.hasNext()) {
             word1 = tokenizer.next();
-            if(tokenizer.hasNext()) {
-                word2 = tokenizer.next();
+            if(tokenizer.hasNextLine()) {
+                word2 = tokenizer.nextLine().trim();
             }
         }
 

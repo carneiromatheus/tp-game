@@ -41,11 +41,11 @@ public class Room
 
     public String getLongDescription() 
     {
-        StringBuilder description = new StringBuilder("You are " + this.description + ".");
+        StringBuilder description = new StringBuilder("Você está " + this.description + ".");
 
         if (!items.isEmpty()) 
         {
-            description.append("\nYou see here: ");
+            description.append("\nAqui, você pode ver: ");
 
             for (Item item : items) 
             {
@@ -63,12 +63,15 @@ public class Room
 
     public String getExitString()
     {
-        StringBuilder exitString = new StringBuilder("Exits:");
+        StringBuilder exitString = new StringBuilder("Saídas: ");
 
         for (String direction : exits.keySet())
         {
-            exitString.append(" ").append(direction);
+            exitString.append(direction).append(", ");
         }
+        
+        exitString.setLength(exitString.length() - 2);
+        exitString.append(".");
 
         return exitString.toString();
     }

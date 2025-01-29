@@ -17,36 +17,44 @@ public class Game
 
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room brasilia, salvador, beloHorizonte, saoPaulo, coritiba, rioDeJaneiro;
 
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        brasilia = new Room("na sede da ABIN, em Brasília");
+        salvador = new Room("em Salvador, Bahia");
+        beloHorizonte = new Room("em Belo Horizonte, Minas Gerais");
+        saoPaulo = new Room("em São Paulo, capital");
+        coritiba = new Room("em Curitiba, Paraná");
+        rioDeJaneiro = new Room("em Rio de Janeiro, capital");
 
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        brasilia.setExit("norte", salvador);
+        brasilia.setExit("leste", beloHorizonte);
 
-        theater.setExit("west", outside);
+        salvador.setExit("oeste", brasilia);
+        salvador.setExit("sul", beloHorizonte);
 
-        pub.setExit("east", outside);
+        beloHorizonte.setExit("norte", salvador);
+        beloHorizonte.setExit("leste", rioDeJaneiro);
+        beloHorizonte.setExit("sul", saoPaulo);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        saoPaulo.setExit("norte", beloHorizonte);
+        saoPaulo.setExit("sul", coritiba);
 
-        office.setExit("west", lab);
+        coritiba.setExit("norte", saoPaulo);
 
-        outside.addItem(new Item("a rusty key", 0.5));
-        outside.addItem(new Item("a map", 0.2));
+        rioDeJaneiro.setExit("oeste", beloHorizonte);
+        rioDeJaneiro.setExit("sul", saoPaulo);
 
-        lab.addItem(new Item("a mysterious book", 1.2));
-        lab.addItem(new Item("a broken computer", 3.5));
-        lab.addItem(new Item("a heavy box", 7.5));
-        lab.addItem(new Item("a magic mushroom", 0.3));
+        // Depois será implementado o método para usar o mapa.
+        // Ao usar o mapa as chaves das saídas receberá o nome da cidade, facilitando o jogo.
+        // Ex.: ao invés de saídas: norte, sul.. será saídas: belo horizonte, curitiba...
+        brasilia.addItem(new Item("um mapa", 0.2));
 
-        currentRoom = outside;
+        saoPaulo.addItem(new Item("a mysterious book", 1.2));
+        saoPaulo.addItem(new Item("a broken computer", 3.5));
+        saoPaulo.addItem(new Item("a heavy box", 7.5));
+        saoPaulo.addItem(new Item("a magic mushroom", 0.3));
+
+        currentRoom = brasilia;
     }
 
     public void play() 

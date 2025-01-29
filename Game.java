@@ -20,10 +20,9 @@ public class Game
          NPC João;
         
         João = new NPC("João","Agente da Agência Brasileira de Inteligência");
-        João.setSpeech("Acredito que ela tenha ido para o norte");
         João.setSpeech("Eu conheço uma tal de Carma, o que deseja saber sobre ela?");
-        João.setLogBackUp();
-
+        João.setSpeech("Acredito que ela tenha ido para o norte");
+        João.setDialogue();
         Room brasilia, salvador, beloHorizonte, saoPaulo, coritiba, rioDeJaneiro;
 
         brasilia = new Room("na sede da ABIN, em Brasília");

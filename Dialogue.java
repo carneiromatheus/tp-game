@@ -24,6 +24,11 @@ public class Dialogue
         }
     }
     
+    /*public void setDialogue()
+    {
+        for(String speech: speeches) dialogue.push(speech);   
+    }*/
+    
     public String getDialogue()
     {
         return dialogue.pop();

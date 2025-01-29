@@ -17,12 +17,15 @@ public class Game
 
     private void createRooms()
     {
-         NPC João;
+         NPC J;
         
-        João = new NPC("João","Agente da Agência Brasileira de Inteligência");
-        João.setSpeech("Eu conheço uma tal de Carma, o que deseja saber sobre ela?");
-        João.setSpeech("Acredito que ela tenha ido para o norte");
-        João.setDialogue();
+        J = new NPC("J","Agente da Agência Brasileira de Inteligência");
+        J.setSpeech("Eu conheço uma tal de Carma, o que deseja saber sobre ela?");
+        J.setSpeech("Acredito que ela tenha ido para o norte");
+        J.setSpeech("3");
+        J.setSpeech("4");
+        J.setSpeech("5");
+        J.setDialogue();
         Room brasilia, salvador, beloHorizonte, saoPaulo, coritiba, rioDeJaneiro;
 
         brasilia = new Room("na sede da ABIN, em Brasília");
@@ -35,7 +38,7 @@ public class Game
         
         brasilia.setExit("norte", salvador);
         brasilia.setExit("leste", beloHorizonte);
-        brasilia.addNPC(João);
+        brasilia.addNPC(J);
         
         salvador.setExit("oeste", brasilia);
         salvador.setExit("sul", beloHorizonte);

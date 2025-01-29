@@ -44,13 +44,18 @@ public class Game
         rioDeJaneiro.setExit("oeste", beloHorizonte);
         rioDeJaneiro.setExit("sul", saoPaulo);
 
+        brasilia.addItem(new Item("arquivo da missão", 0.5));
+        
         // Depois será implementado o método para usar o mapa.
-        // Ao usar o mapa as chaves das saídas receberá o nome da cidade, facilitando o jogo.
-        // Ex.: ao invés de saídas: norte, sul.. será saídas: belo horizonte, curitiba...
-        brasilia.addItem(new Item("um mapa", 0.2));
+        // Ao usar o mapa as chaves das saídas receberá o nome da
+        // cidade, facilitando o jogo.
+        // Ex.: ao invés de saídas: norte, sul.. será saídas: belo
+        // horizonte, curitiba...
+        
+        brasilia.addItem(new Item("mapa do Brasil", 0.2));
 
         saoPaulo.addItem(new Item("a mysterious book", 1.2));
-        saoPaulo.addItem(new Item("a broken computer", 3.5));
+        saoPaulo.addItem(new Item("a computer", 3.5));
         saoPaulo.addItem(new Item("a heavy box", 7.5));
         saoPaulo.addItem(new Item("a magic mushroom", 0.3));
 
@@ -73,19 +78,20 @@ public class Game
     private void printWelcome()
     {
         System.out.println("\nABIN (Agência Brasileira de Inteligência)");
-        System.out.println("""
+        System.out.println("\nBem vindo, Agente! Você foi designado para uma missão...\n");
         
-        Arquivo: Carmen Sandiego: Operação Brasil
+        // Ao pegar usar o item arquivo da missão
         
-        Bem vindo, Agente,
+        // Missão: Carmen Sandiego: Operação Brasil
         
-        Você foi encarregado de capturar a ladra internacional Carmen Sandiego, que roubou a
-        Joia Imperial Brasileira (parte da coroa de Dom Pedro II). Ela está escondida em uma
-        das grandes cidades brasileiras.
+        // Você foi encarregado de capturar a ladra internacional
+        // Carmen Sandiego, que roubou a Joia Imperial Brasileira
+        // (parte da coroa de Dom Pedro II). Ela está escondida em uma
+        // das grandes cidades brasileiras.
         
-        Você precisa seguir suas pistas, interagir com informantes, e capturá-la antes que ela
-        fuja do país para sempre.
-        """);
+        // Você precisa seguir suas pistas, interagir com informantes,
+        // e capturá-la antes que ela fuja do país para sempre.
+        
         System.out.println("Digite 'help' se você precisar de ajuda.\n");
         printLocationInfo();
         System.out.println();

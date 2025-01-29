@@ -1,7 +1,7 @@
 public class CommandWords
 {
     private static final String[] validCommands = {
-        "go", "quit", "help", "look", "eat", "back", "take", "drop", "items", "talk"
+        "viajar", "sair", "ajuda", "observar", "usar", "voltar", "pegar", "soltar", "itens", "talk"
     };
 
     public CommandWords()
@@ -12,7 +12,7 @@ public class CommandWords
     public boolean isCommand(String aString)
     {
         for(int i = 0; i < validCommands.length; i++) {
-            if(validCommands[i].equals(aString))
+            if(validCommands[i].equalsIgnoreCase(aString))
                 return true;
         }
 
@@ -25,8 +25,11 @@ public class CommandWords
         
         for(String commandWord : validCommands )
         {
-            commands.append(commandWord).append(" ");
+            commands.append(commandWord).append(", ");
         }
+        
+        commands.setLength(commands.length() - 2);
+        commands.append(".");
         
         return commands.toString().trim();
     }

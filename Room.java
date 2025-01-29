@@ -60,7 +60,7 @@ public class Room
 
             for (Item item : items) 
             {
-                description.append(item.getDetails()).append(", ");
+                description.append("\n\t- ").append(item.getDetails()).append(", ");
             }
 
             description.setLength(description.length() - 2);
@@ -86,11 +86,11 @@ public class Room
 
     public String getExitString()
     {
-        StringBuilder exitString = new StringBuilder("Saídas: ");
+        StringBuilder exitString = new StringBuilder("Destinos: ");
 
         for (String direction : exits.keySet())
         {
-            exitString.append(direction).append(", ");
+            exitString.append("\n\t- ").append(direction).append(", ");
         }
         
         exitString.setLength(exitString.length() - 2);

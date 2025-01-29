@@ -55,15 +55,14 @@ public class Game
         rioDeJaneiro.setExit("oeste", beloHorizonte);
         rioDeJaneiro.setExit("sul", saoPaulo);
 
-        // Depois será implementado o método para usar o mapa.
-        // Ao usar o mapa as chaves das saídas receberá o nome da cidade, facilitando o jogo.
-        // Ex.: ao invés de saídas: norte, sul.. será saídas: belo horizonte, curitiba...
-        brasilia.addItem(new Item("um mapa", 0.2));
+        brasilia.addItem(new Item("arquivo da missão", 0.7));
+        brasilia.addItem(new Item("mapa do Brasil", 0.35));
+        brasilia.addItem(new Item("maleta", 1.0));
 
-        saoPaulo.addItem(new Item("a mysterious book", 1.2));
-        saoPaulo.addItem(new Item("a broken computer", 3.5));
-        saoPaulo.addItem(new Item("a heavy box", 7.5));
-        saoPaulo.addItem(new Item("a magic mushroom", 0.3));
+        // saoPaulo.addItem(new Item("a mysterious book", 1.2));
+        // saoPaulo.addItem(new Item("a computer", 3.5));
+        // saoPaulo.addItem(new Item("a heavy box", 7.5));
+        // saoPaulo.addItem(new Item("a magic mushroom", 0.3));
 
         currentRoom = brasilia;
     }
@@ -78,28 +77,14 @@ public class Game
             finished = processCommand(command);
             System.out.println();
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Obrigado, Agente. Até a próxima missão.");
     }
 
     private void printWelcome()
     {
         System.out.println("\nABIN (Agência Brasileira de Inteligência)");
-        /*System.out.println("""
-        
-        Arquivo: Carmen Sandiego: Operação Brasil
-        
-        Bem vindo, Agente,
-        
-        Você foi encarregado de capturar a ladra internacional Carmen Sandiego, que roubou a
-        Joia Imperial Brasileira (parte da coroa de Dom Pedro II). Ela está escondida em uma
-        das grandes cidades brasileiras.
-        
-        Você precisa seguir suas pistas, interagir com informantes, e capturá-la antes que ela
-        fuja do país para sempre.
-        """);
-        System.out.println("Digite 'help' se você precisar de ajuda.\n");
-        printLocationInfo();
-        System.out.println();*/
+        System.out.println("\nSeja bem vindo, Agente!\nVocê foi designado para uma missão...\n");
+        System.out.println("Digite 'ajuda' se você precisar de ajuda.\n");
     }
 
     private boolean processCommand(Command command) 
@@ -108,30 +93,41 @@ public class Game
 
         if(command.isUnknown()) 
         {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return false;
         }
 
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) printHelp();
-        else if (commandWord.equals("go")) goRoom(command);
-        else if (commandWord.equals("look")) look(command);
-        else if (commandWord.equals("eat")) eat(command);
-        else if (commandWord.equals("quit")) wantToQuit = quit(command);
-        else if (commandWord.equals("back")) back(command);
-        else if (commandWord.equals("take")) take(command);
-        else if (commandWord.equals("drop")) drop(command);
-        else if (commandWord.equals("items")) items(command);
+        String commandWord = command.getCommandWord().toLowerCase();
+        if (commandWord.equals("ajuda")) printHelp();
+        else if (commandWord.equals("viajar")) goRoom(command);
+        else if (commandWord.equals("observar")) look(command);
+        else if (commandWord.equals("usar")) use(command);
+        else if (commandWord.equals("sair")) wantToQuit = quit(command);
+        else if (commandWord.equals("voltar")) back(command);
+        else if (commandWord.equals("pegar")) take(command);
+        else if (commandWord.equals("soltar")) drop(command);
+        else if (commandWord.equals("itens")) items(command);
         else if (commandWord.equals("talk")) talk(command);
+
         return wantToQuit;
     }
 
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println("""
+        Você é um agente da ABIN. Seu objetivo é encontrar e
+        prender suspeitos. Para isso, você deve:
+        
+        1. Viajar entre cidades brasileiras seguindo pistas que
+        indicam seu próximo destino.
+        
+        2. Coletar informações com informantes e itens importantes.
+        
+        3. Resolver enigmas ou usar itens em locais estratégicos.
+        
+        4. Prender suspeito onde ele se esconde.
+        """);
+        System.out.println("Suas palavras de comando são:");
         System.out.println(parser.getValidCommands());
     }
     
@@ -163,7 +159,7 @@ public class Game
     private void goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
+            System.out.println("Viajar para onde?");
             return;
         }
 
@@ -171,7 +167,7 @@ public class Game
         Room nextRoom = player.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("Não é um destino.");
         } 
         else {
             roomLog.push(player.getCurrentRoom());
@@ -184,7 +180,7 @@ public class Game
     {
         if(command.hasSecondWord())
         {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return;
         }
         else printLocationInfo();
@@ -194,7 +190,7 @@ public class Game
     {
         if(!command.hasSecondWord())
         {
-            System.out.println("Take what?");
+            System.out.println("Pegar o que?");
             return;
         }
 
@@ -214,21 +210,34 @@ public class Game
 
         if (itemToTake == null)
         {
-            System.out.println("There is no such item here!");
+            System.out.println("Esse item não existe aqui!");
         }
         else
         {
             double currentWeight = player.getCurrentWeight();
 
-            if (currentWeight + itemToTake.getWeight() <= player.getMaxWeight())
+            if (currentWeight + itemToTake.getWeight() <= player.getMaxWeight()
+            || itemToTake.getDescription().equalsIgnoreCase("maleta"))
             {
                 player.addItemToInventory(itemToTake);
-                currentRoom.removeItem(itemToTake);
-                System.out.println("You picked up: " + itemToTake.getDetails());
+
+                if (itemToTake.getDescription().equalsIgnoreCase("maleta"))
+                {
+                    player.setMaxWeight(player.getMaxWeight() + 6.0);
+                    currentRoom.removeItem(itemToTake);
+                    System.out.println("Você pegou um item especial: maleta");
+                    System.out.println("Capacidade máxima de itens aumentada para " + player.getMaxWeight() + "kg");
+                }
+                else
+                {
+                    currentRoom.removeItem(itemToTake);
+                    System.out.println("Você pegou o item: " + itemToTake.getDetails());
+                }
             }
             else
             {
-                System.out.println("You can't carry " + itemToTake.getDescription() + ". It's too heavy!");
+                System.out.println("Você não pode pegar o item " + itemToTake.getDescription() + ".");
+                System.out.println("Capacidade máxima de itens alcançada.");
             }
 
         }
@@ -238,7 +247,7 @@ public class Game
     {
         if(!command.hasSecondWord())
         {
-            System.out.println("Drop what?");
+            System.out.println("Soltar o que?");
             return;
         }
 
@@ -257,13 +266,22 @@ public class Game
 
         if (itemToDrop == null)
         {
-            System.out.println("You don't have such an item!");
+            System.out.println("Você não tem esse item!");
+        }
+        else if (itemToDrop.getDescription().equalsIgnoreCase("maleta") && player.getInventory().size() > 1)
+        {
+            System.out.println("Não é possível soltar a maleta com itens dentro.");
         }
         else
         {
             player.getCurrentRoom().addItem(itemToDrop);
             player.removeItemFromInventory(itemToDrop);
-            System.out.println("You dropped: " + itemToDrop.getDetails());
+            System.out.println("Você soltou o item: " + itemToDrop.getDetails());
+            if (itemToDrop.getDescription().equalsIgnoreCase("maleta"))
+            {
+                player.setMaxWeight(player.getMaxWeight() - 6.0);
+                System.out.println("Capacidade máxima de itens reduzida para " + player.getMaxWeight() + "kg");
+            }
         }
     }
 
@@ -271,12 +289,12 @@ public class Game
     {
         if(command.hasSecondWord())
         {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return;
         }
         else
         {
-            if(roomLog.empty()) System.out.println("You can't go back");
+            if(roomLog.empty()) System.out.println("Não há destino para retornar.");
             else
             {   
                 player.setCurrentRoom(roomLog.pop());
@@ -285,48 +303,84 @@ public class Game
         }
     }
 
-    private void eat(Command command)
+    private void use(Command command)
     {
         if (!command.hasSecondWord())
         {
-            System.out.println("Eat what?");
+            System.out.println("Usar o que?");
             return;
         }
 
         String itemName = command.getSecondWord();
-        Item itemToEat = null;
+        Item itemToUse = null;
 
         for (Item item : player.getInventory())
         {
             if (item.getDescription().equalsIgnoreCase(itemName))
             {
-                itemToEat = item;
+                itemToUse = item;
                 break;
             }
         }
 
-        if (itemToEat == null)
+        if (itemToUse == null)
         {
-            System.out.println("You don't have that item to eat!");
+            System.out.println("Item não encontrado no inventário.");
             return;
         }
 
-        if (itemToEat.getDescription().equalsIgnoreCase("a magic mushroom"))
+        if (itemToUse.getDescription().equalsIgnoreCase("arquivo da missão"))
         {
-            player.setMaxWeight(player.getMaxWeight() + 5.0);
-            player.removeItemFromInventory(itemToEat);
-            System.out.println("You ate the magic mushroom. You carrying increased to " + player.getMaxWeight() + "kg");
+            System.out.println("""
+            Missão: Carmen Sandiego: Operação Brasil
+            
+            Você foi encarregado de capturar a ladra internacional
+            Carmen Sandiego, que roubou a Joia Imperial Brasileira
+            (parte da coroa de Dom Pedro II). Ela está escondida em uma
+            das grandes cidades brasileiras.
+        
+            Você precisa seguir suas pistas, interagir com informantes,
+            e capturá-la antes que ela fuja do país para sempre.
+            
+            Uma denúncia anônima foi deixada em sua mesa...""");
+
+            if (player.getCurrentRoom().description.equalsIgnoreCase("na sede da ABIN, em Brasília"))
+            {
+                player.getCurrentRoom().addItem(new Item("denúncia anônima", 0.1));
+            }
+        }
+        else if (itemToUse.getDescription().equalsIgnoreCase("mapa do brasil"))
+        {
+            System.out.println("""
+            
+                  _ _ _ _ _ _ _ _ Salvador (BA)            
+                 /                    |   
+                /                     |
+            Brasília (DF) --- Belo Horizonte (MG) --- Rio de Janeiro (RJ)
+                                      |                     /
+                                      |                    /   
+                                São Paulo (SP) _ _ _ _ _  /
+                                      |
+                                      |
+                              Curitiba (PR)
+            """);
+        }
+        else if (itemToUse.getDescription().equalsIgnoreCase("denúncia anônima"))
+        {
+            System.out.println("""
+            Em uma ligação telefônica foi informado que Carmen Sandiego estava
+            indo encontrar um soteropolitano.""");
         }
         else
         {
-            System.out.println("You can't eat " + itemToEat.getDescription() + ".");
+            System.out.println("Você não pode usar o item " + itemToUse.getDescription() + ".");
         }
     }
 
     private void items(Command command)
     {
         if(command.hasSecondWord()) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return;
         }
         else {
@@ -337,7 +391,7 @@ public class Game
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            System.out.println("Sair o que?");
             return false;
         }
         else {

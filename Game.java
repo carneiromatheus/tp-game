@@ -94,12 +94,12 @@ public class Game
             return false;
         }
 
-        String commandWord = command.getCommandWord();
+        String commandWord = command.getCommandWord().toLowerCase();
         if (commandWord.equals("ajuda")) printHelp();
-        else if (commandWord.equals("go")) goRoom(command);
+        else if (commandWord.equals("viajar")) goRoom(command);
         else if (commandWord.equals("look")) look(command);
-        else if (commandWord.equals("usar")) usar(command);
-        else if (commandWord.equals("quit")) wantToQuit = quit(command);
+        else if (commandWord.equals("usar")) use(command);
+        else if (commandWord.equals("sair")) wantToQuit = quit(command);
         else if (commandWord.equals("back")) back(command);
         else if (commandWord.equals("take")) take(command);
         else if (commandWord.equals("drop")) drop(command);
@@ -130,7 +130,7 @@ public class Game
     private void goRoom(Command command)
     {
         if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
+            System.out.println("Viajar para onde?");
             return;
         }
 
@@ -138,7 +138,7 @@ public class Game
         Room nextRoom = player.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("Não é um destino.");
         } 
         else {
             roomLog.push(player.getCurrentRoom());
@@ -252,7 +252,7 @@ public class Game
         }
     }
 
-    private void usar(Command command)
+    private void use(Command command)
     {
         if (!command.hasSecondWord())
         {
@@ -317,7 +317,7 @@ public class Game
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            System.out.println("Sair o que?");
             return false;
         }
         else {

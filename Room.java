@@ -63,7 +63,7 @@ public class Room
 
     public String getExitString()
     {
-        StringBuilder exitString = new StringBuilder("Saídas: ");
+        StringBuilder exitString = new StringBuilder("Destinos: ");
 
         for (String direction : exits.keySet())
         {

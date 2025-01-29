@@ -79,7 +79,7 @@ public class Game
     {
         System.out.println("\nABIN (Agência Brasileira de Inteligência)");
         System.out.println("\nBem vindo, Agente! Você foi designado para uma missão...\n");
-        System.out.println("Digite 'help' se você precisar de ajuda.\n");
+        System.out.println("Digite 'ajuda' se você precisar de ajuda.\n");
         printLocationInfo();
         System.out.println();
     }
@@ -95,7 +95,7 @@ public class Game
         }
 
         String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) printHelp();
+        if (commandWord.equals("ajuda")) printHelp();
         else if (commandWord.equals("go")) goRoom(command);
         else if (commandWord.equals("look")) look(command);
         else if (commandWord.equals("usar")) usar(command);
@@ -110,10 +110,20 @@ public class Game
 
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println("Você é um agente da ABIN e uma missão foi designada para você.");
+        System.out.println("""
+        
+        Objetivo: Prender o Suspeito antes que ela fuja do Brasil. Para isso, você deve:
+        
+        1. Viajar entre cidades brasileiras seguindo pistas que indicam seu próximo destino.
+        
+        2. Coletar informações com informantes e itens importantes.
+        
+        3. Resolver enigmas ou usar itens em locais estratégicos.
+        
+        4. Prender suspeito onde ele se esconde.
+        """);
+        System.out.println("Suas palavras de comando são:");
         System.out.println(parser.getValidCommands());
     }
 
@@ -270,9 +280,9 @@ public class Game
 
         // if (itemToUse.getDescription().equalsIgnoreCase("a magic mushroom"))
         // {
-            // player.setMaxWeight(player.getMaxWeight() + 5.0);
-            // player.removeItemFromInventory(itemToUse);
-            // System.out.println("You ate the magic mushroom. You carrying increased to " + player.getMaxWeight() + "kg");
+        // player.setMaxWeight(player.getMaxWeight() + 5.0);
+        // player.removeItemFromInventory(itemToUse);
+        // System.out.println("You ate the magic mushroom. You carrying increased to " + player.getMaxWeight() + "kg");
         // }
         if (itemToUse.getDescription().equalsIgnoreCase("arquivo da missão"))
         {

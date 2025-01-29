@@ -5,17 +5,13 @@ import java.util.ArrayList;
 public class NPC
 {
     private String description;
-    private String name;
-    private Stack<String> speechLog;
-    private Stack<String> logBackUp; 
-    private int index;
-    
+    private String name; 
+    private Dialogue speeches;
     public NPC(String name, String description)
     {
          this.description = description;
          this.name = name;
-         speechLog = new Stack<>();
-         index = 0;
+         speeches = new Dialogue();
     }
     
     public String getDetails()
@@ -28,21 +24,28 @@ public class NPC
         return name;
     }
     
-    public String getSpeech()
+    /*public String getSpeech()
     {
         if(speechLog.isEmpty()) speechLog = logBackUp;
         String speech = speechLog.pop();
         return speech;
     }
-    
+    */
     public void setSpeech(String speech) 
     {
-        speechLog.push(speech);
+        speeches.add(speech);
     }
     
-    public void setLogBackUp()
+    public String getSpeech()
     {
-        logBackUp = speechLog;
+        String speech;
+        if(speeches.isEmpty()) speeches.setDialogue();
+        speech = speeches.getDialogue();
+        return speech;
+    }
+    public void setDialogue()
+    {
+        speeches.setDialogue();
     }
     
 }

@@ -8,14 +8,12 @@ public class NPC
     private String name;
     private Stack<String> speechLog;
     private Stack<String> logBackUp; 
-    private int index;
     
     public NPC(String name, String description)
     {
          this.description = description;
          this.name = name;
          speechLog = new Stack<>();
-         index = 0;
     }
     
     public String getDetails()

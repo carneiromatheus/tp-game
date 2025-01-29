@@ -45,19 +45,19 @@ public class Game
         rioDeJaneiro.setExit("sul", saoPaulo);
 
         brasilia.addItem(new Item("arquivo da missão", 0.5));
-        
+
         // Depois será implementado o método para usar o mapa.
         // Ao usar o mapa as chaves das saídas receberá o nome da
         // cidade, facilitando o jogo.
         // Ex.: ao invés de saídas: norte, sul.. será saídas: belo
         // horizonte, curitiba...
-        
+
         brasilia.addItem(new Item("mapa do Brasil", 0.2));
 
-        saoPaulo.addItem(new Item("a mysterious book", 1.2));
-        saoPaulo.addItem(new Item("a computer", 3.5));
-        saoPaulo.addItem(new Item("a heavy box", 7.5));
-        saoPaulo.addItem(new Item("a magic mushroom", 0.3));
+        // saoPaulo.addItem(new Item("a mysterious book", 1.2));
+        // saoPaulo.addItem(new Item("a computer", 3.5));
+        // saoPaulo.addItem(new Item("a heavy box", 7.5));
+        // saoPaulo.addItem(new Item("a magic mushroom", 0.3));
 
         currentRoom = brasilia;
     }
@@ -79,19 +79,6 @@ public class Game
     {
         System.out.println("\nABIN (Agência Brasileira de Inteligência)");
         System.out.println("\nBem vindo, Agente! Você foi designado para uma missão...\n");
-        
-        // Ao pegar usar o item arquivo da missão
-        
-        // Missão: Carmen Sandiego: Operação Brasil
-        
-        // Você foi encarregado de capturar a ladra internacional
-        // Carmen Sandiego, que roubou a Joia Imperial Brasileira
-        // (parte da coroa de Dom Pedro II). Ela está escondida em uma
-        // das grandes cidades brasileiras.
-        
-        // Você precisa seguir suas pistas, interagir com informantes,
-        // e capturá-la antes que ela fuja do país para sempre.
-        
         System.out.println("Digite 'help' se você precisar de ajuda.\n");
         printLocationInfo();
         System.out.println();
@@ -103,7 +90,7 @@ public class Game
 
         if(command.isUnknown()) 
         {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return false;
         }
 
@@ -111,7 +98,7 @@ public class Game
         if (commandWord.equals("help")) printHelp();
         else if (commandWord.equals("go")) goRoom(command);
         else if (commandWord.equals("look")) look(command);
-        else if (commandWord.equals("eat")) eat(command);
+        else if (commandWord.equals("usar")) usar(command);
         else if (commandWord.equals("quit")) wantToQuit = quit(command);
         else if (commandWord.equals("back")) back(command);
         else if (commandWord.equals("take")) take(command);
@@ -154,7 +141,7 @@ public class Game
     {
         if(command.hasSecondWord())
         {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return;
         }
         else printLocationInfo();
@@ -241,7 +228,7 @@ public class Game
     {
         if(command.hasSecondWord())
         {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return;
         }
         else
@@ -255,48 +242,61 @@ public class Game
         }
     }
 
-    private void eat(Command command)
+    private void usar(Command command)
     {
         if (!command.hasSecondWord())
         {
-            System.out.println("Eat what?");
+            System.out.println("Usar o que?");
             return;
         }
 
         String itemName = command.getSecondWord();
-        Item itemToEat = null;
+        Item itemToUse = null;
 
         for (Item item : player.getInventory())
         {
             if (item.getDescription().equalsIgnoreCase(itemName))
             {
-                itemToEat = item;
+                itemToUse = item;
                 break;
             }
         }
 
-        if (itemToEat == null)
+        if (itemToUse == null)
         {
-            System.out.println("You don't have that item to eat!");
+            System.out.println("Item não encontrado no inventário.");
             return;
         }
 
-        if (itemToEat.getDescription().equalsIgnoreCase("a magic mushroom"))
+        // if (itemToUse.getDescription().equalsIgnoreCase("a magic mushroom"))
+        // {
+            // player.setMaxWeight(player.getMaxWeight() + 5.0);
+            // player.removeItemFromInventory(itemToUse);
+            // System.out.println("You ate the magic mushroom. You carrying increased to " + player.getMaxWeight() + "kg");
+        // }
+        if (itemToUse.getDescription().equalsIgnoreCase("arquivo da missão"))
         {
-            player.setMaxWeight(player.getMaxWeight() + 5.0);
-            player.removeItemFromInventory(itemToEat);
-            System.out.println("You ate the magic mushroom. You carrying increased to " + player.getMaxWeight() + "kg");
+            System.out.println("""
+            Missão: Carmen Sandiego: Operação Brasil
+            
+            Você foi encarregado de capturar a ladra internacional
+            Carmen Sandiego, que roubou a Joia Imperial Brasileira
+            (parte da coroa de Dom Pedro II). Ela está escondida em uma
+            das grandes cidades brasileiras.
+        
+            Você precisa seguir suas pistas, interagir com informantes,
+            e capturá-la antes que ela fuja do país para sempre.""");
         }
         else
         {
-            System.out.println("You can't eat " + itemToEat.getDescription() + ".");
+            System.out.println("Você não pode usar o item " + itemToUse.getDescription() + ".");
         }
     }
 
     private void items(Command command)
     {
         if(command.hasSecondWord()) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Não sei o que você quer dizer...");
             return;
         }
         else {

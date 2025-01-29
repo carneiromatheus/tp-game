@@ -6,17 +6,23 @@ public class Room
     public String description;
     private HashMap<String, Room> exits;
     private ArrayList<Item> items;
-
+    private ArrayList<NPC> npcs;
     public Room(String description) 
     {
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
+        npcs = new ArrayList<>();
     }
 
     public void setExit(String direction, Room neighbor) 
     {
         exits.put(direction, neighbor);
+    }
+    
+    public void addNPC(NPC npc)
+    {
+        npcs.add(npc);
     }
 
     public Room getExit(String direction)
@@ -38,6 +44,11 @@ public class Room
     {
         return items;
     }
+    
+    public ArrayList<NPC> getNpcs()
+    {
+        return npcs;
+    }
 
     public String getLongDescription() 
     {
@@ -52,6 +63,18 @@ public class Room
                 description.append(item.getDetails()).append(", ");
             }
 
+            description.setLength(description.length() - 2);
+            description.append(".");
+        }
+        
+        if(!npcs.isEmpty())
+        {
+            description.append("\n: ");
+            for (NPC npc: npcs) 
+            {
+                description.append(npc.getDetails()).append(", ");
+            }
+            
             description.setLength(description.length() - 2);
             description.append(".");
         }

@@ -17,6 +17,13 @@ public class Game
 
     private void createRooms()
     {
+         NPC João;
+        
+        João = new NPC("João","Agente da Agência Brasileira de Inteligência");
+        João.setSpeech("Acredito que ela tenha ido para o norte");
+        João.setSpeech("Eu conheço uma tal de Carma, o que deseja saber sobre ela?");
+        João.setLogBackUp();
+
         Room brasilia, salvador, beloHorizonte, saoPaulo, coritiba, rioDeJaneiro;
 
         brasilia = new Room("na sede da ABIN, em Brasília");
@@ -25,10 +32,12 @@ public class Game
         saoPaulo = new Room("em São Paulo, capital");
         coritiba = new Room("em Curitiba, Paraná");
         rioDeJaneiro = new Room("em Rio de Janeiro, capital");
-
+            
+        
         brasilia.setExit("norte", salvador);
         brasilia.setExit("leste", beloHorizonte);
-
+        brasilia.addNPC(João);
+        
         salvador.setExit("oeste", brasilia);
         salvador.setExit("sul", beloHorizonte);
 
@@ -73,7 +82,7 @@ public class Game
     private void printWelcome()
     {
         System.out.println("\nABIN (Agência Brasileira de Inteligência)");
-        System.out.println("""
+        /*System.out.println("""
         
         Arquivo: Carmen Sandiego: Operação Brasil
         
@@ -88,7 +97,7 @@ public class Game
         """);
         System.out.println("Digite 'help' se você precisar de ajuda.\n");
         printLocationInfo();
-        System.out.println();
+        System.out.println();*/
     }
 
     private boolean processCommand(Command command) 
@@ -111,7 +120,7 @@ public class Game
         else if (commandWord.equals("take")) take(command);
         else if (commandWord.equals("drop")) drop(command);
         else if (commandWord.equals("items")) items(command);
-
+        else if (commandWord.equals("talk")) talk(command);
         return wantToQuit;
     }
 
@@ -123,6 +132,31 @@ public class Game
         System.out.println("Your command words are:");
         System.out.println(parser.getValidCommands());
     }
+    
+     private void talk(Command command)
+    {
+        if(!command.hasSecondWord())
+        {
+            System.out.println("Talk to who?");
+            return;
+        }
+        else
+        {
+            String npcToTalk = command.getSecondWord();
+            Room currentRoom = player.getCurrentRoom();
+    
+            for (NPC npc: currentRoom.getNpcs())
+            {
+                if (npc.getName().equalsIgnoreCase(npcToTalk))
+                {
+                    System.out.print(npc.getSpeech());
+                    break;
+                }
+                else System.out.println("I dont know this person");
+            }    
+        }
+    }
+
 
     private void goRoom(Command command)
     {

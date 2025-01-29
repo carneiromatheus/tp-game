@@ -72,7 +72,7 @@ public class Game
             finished = processCommand(command);
             System.out.println();
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Obrigado, Agente. Até a próxima missão.");
     }
 
     private void printWelcome()

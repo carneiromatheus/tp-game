@@ -110,12 +110,12 @@ public class Game
 
     private void printHelp() 
     {
-        System.out.println("Você é um agente da ABIN e uma missão foi designada para você.");
         System.out.println("""
+        Você é um agente da ABIN. Seu objetivo é encontrar e
+        prender suspeitos. Para isso, você deve:
         
-        Objetivo: Prender o Suspeito antes que ela fuja do Brasil. Para isso, você deve:
-        
-        1. Viajar entre cidades brasileiras seguindo pistas que indicam seu próximo destino.
+        1. Viajar entre cidades brasileiras seguindo pistas que
+        indicam seu próximo destino.
         
         2. Coletar informações com informantes e itens importantes.
         

@@ -49,11 +49,11 @@ public class Player
 
         for (Item item : inventory)
         {
-            inventoryDescription.append("\n- ").append(item.getDetails()).append(";");
+            inventoryDescription.append("\n\t- ").append(item.getDetails()).append(";");
         }
 
         inventoryDescription.setLength(inventoryDescription.length() - 1);
-        inventoryDescription.append(".");
+        inventoryDescription.append(".\n");
         inventoryDescription.append("\n\nPeso carregado: ").append(String.format("%.3f", getCurrentWeight())).append("kg");
         inventoryDescription.append("\nCapacidade total: ").append(String.format("%.3f", getMaxWeight())).append("kg");
 

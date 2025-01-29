@@ -45,14 +45,8 @@ public class Game
         rioDeJaneiro.setExit("sul", saoPaulo);
 
         brasilia.addItem(new Item("arquivo da missão", 0.7));
-
-        // Depois será implementado o método para usar o mapa.
-        // Ao usar o mapa as chaves das saídas receberá o nome da
-        // cidade, facilitando o jogo.
-        // Ex.: ao invés de saídas: norte, sul.. será saídas: belo
-        // horizonte, curitiba...
-
         brasilia.addItem(new Item("mapa do Brasil", 0.35));
+        brasilia.addItem(new Item("maleta", 1.0));
 
         // saoPaulo.addItem(new Item("a mysterious book", 1.2));
         // saoPaulo.addItem(new Item("a computer", 3.5));
@@ -78,7 +72,7 @@ public class Game
     private void printWelcome()
     {
         System.out.println("\nABIN (Agência Brasileira de Inteligência)");
-        System.out.println("\nBem vindo, Agente! Você foi designado para uma missão...\n");
+        System.out.println("\nSeja bem vindo, Agente!\nVocê foi designado para uma missão...\n");
         System.out.println("Digite 'ajuda' se você precisar de ajuda.\n");
         printLocationInfo();
         System.out.println();
@@ -187,11 +181,23 @@ public class Game
         {
             double currentWeight = player.getCurrentWeight();
 
-            if (currentWeight + itemToTake.getWeight() <= player.getMaxWeight())
+            if (currentWeight + itemToTake.getWeight() <= player.getMaxWeight()
+            || itemToTake.getDescription().equalsIgnoreCase("maleta"))
             {
                 player.addItemToInventory(itemToTake);
-                currentRoom.removeItem(itemToTake);
-                System.out.println("Você pegou o item: " + itemToTake.getDetails());
+
+                if (itemToTake.getDescription().equalsIgnoreCase("maleta"))
+                {
+                    player.setMaxWeight(player.getMaxWeight() + 6.0);
+                    currentRoom.removeItem(itemToTake);
+                    System.out.println("Você pegou um item especial: maleta");
+                    System.out.println("Capacidade máxima de itens aumentada para " + player.getMaxWeight() + "kg");
+                }
+                else
+                {
+                    currentRoom.removeItem(itemToTake);
+                    System.out.println("Você pegou o item: " + itemToTake.getDetails());
+                }
             }
             else
             {
@@ -227,11 +233,20 @@ public class Game
         {
             System.out.println("Você não tem esse item!");
         }
+        else if (itemToDrop.getDescription().equalsIgnoreCase("maleta") && player.getInventory().size() > 1)
+        {
+            System.out.println("Não é possível soltar a maleta com itens dentro.");
+        }
         else
         {
             player.getCurrentRoom().addItem(itemToDrop);
             player.removeItemFromInventory(itemToDrop);
             System.out.println("Você soltou o item: " + itemToDrop.getDetails());
+            if (itemToDrop.getDescription().equalsIgnoreCase("maleta"))
+            {
+                player.setMaxWeight(player.getMaxWeight() - 6.0);
+                System.out.println("Capacidade máxima de itens reduzida para " + player.getMaxWeight() + "kg");
+            }
         }
     }
 
@@ -279,12 +294,6 @@ public class Game
             return;
         }
 
-        // if (itemToUse.getDescription().equalsIgnoreCase("a magic mushroom"))
-        // {
-        // player.setMaxWeight(player.getMaxWeight() + 5.0);
-        // player.removeItemFromInventory(itemToUse);
-        // System.out.println("You ate the magic mushroom. You carrying increased to " + player.getMaxWeight() + "kg");
-        // }
         if (itemToUse.getDescription().equalsIgnoreCase("arquivo da missão"))
         {
             System.out.println("""
@@ -296,7 +305,36 @@ public class Game
             das grandes cidades brasileiras.
         
             Você precisa seguir suas pistas, interagir com informantes,
-            e capturá-la antes que ela fuja do país para sempre.""");
+            e capturá-la antes que ela fuja do país para sempre.
+            
+            Uma denúncia anônima foi deixada em sua mesa...""");
+
+            if (player.getCurrentRoom().description.equalsIgnoreCase("na sede da ABIN, em Brasília"))
+            {
+                player.getCurrentRoom().addItem(new Item("denúncia anônima", 0.1));
+            }
+        }
+        else if (itemToUse.getDescription().equalsIgnoreCase("mapa do brasil"))
+        {
+            System.out.println("""
+            
+                  _ _ _ _ _ _ _ _ Salvador (BA)            
+                 /                    |   
+                /                     |
+            Brasília (DF) --- Belo Horizonte (MG) --- Rio de Janeiro (RJ)
+                                      |                     /
+                                      |                    /   
+                                São Paulo (SP) _ _ _ _ _  /
+                                      |
+                                      |
+                              Curitiba (PR)
+            """);
+        }
+        else if (itemToUse.getDescription().equalsIgnoreCase("denúncia anônima"))
+        {
+            System.out.println("""
+            Em uma ligação telefônica foi informado que Carmen Sandiego estava
+            indo encontrar um soteropolitano.""");
         }
         else
         {

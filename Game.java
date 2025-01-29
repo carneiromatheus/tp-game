@@ -44,7 +44,7 @@ public class Game
         rioDeJaneiro.setExit("oeste", beloHorizonte);
         rioDeJaneiro.setExit("sul", saoPaulo);
 
-        brasilia.addItem(new Item("arquivo da missão", 0.5));
+        brasilia.addItem(new Item("arquivo da missão", 0.7));
 
         // Depois será implementado o método para usar o mapa.
         // Ao usar o mapa as chaves das saídas receberá o nome da
@@ -52,7 +52,7 @@ public class Game
         // Ex.: ao invés de saídas: norte, sul.. será saídas: belo
         // horizonte, curitiba...
 
-        brasilia.addItem(new Item("mapa do Brasil", 0.2));
+        brasilia.addItem(new Item("mapa do Brasil", 0.35));
 
         // saoPaulo.addItem(new Item("a mysterious book", 1.2));
         // saoPaulo.addItem(new Item("a computer", 3.5));
@@ -97,13 +97,13 @@ public class Game
         String commandWord = command.getCommandWord().toLowerCase();
         if (commandWord.equals("ajuda")) printHelp();
         else if (commandWord.equals("viajar")) goRoom(command);
-        else if (commandWord.equals("look")) look(command);
+        else if (commandWord.equals("observar")) look(command);
         else if (commandWord.equals("usar")) use(command);
         else if (commandWord.equals("sair")) wantToQuit = quit(command);
-        else if (commandWord.equals("back")) back(command);
-        else if (commandWord.equals("take")) take(command);
-        else if (commandWord.equals("drop")) drop(command);
-        else if (commandWord.equals("items")) items(command);
+        else if (commandWord.equals("voltar")) back(command);
+        else if (commandWord.equals("pegar")) take(command);
+        else if (commandWord.equals("soltar")) drop(command);
+        else if (commandWord.equals("itens")) items(command);
 
         return wantToQuit;
     }
@@ -161,7 +161,7 @@ public class Game
     {
         if(!command.hasSecondWord())
         {
-            System.out.println("Take what?");
+            System.out.println("Pegar o que?");
             return;
         }
 
@@ -181,7 +181,7 @@ public class Game
 
         if (itemToTake == null)
         {
-            System.out.println("There is no such item here!");
+            System.out.println("Esse item não existe aqui!");
         }
         else
         {
@@ -191,11 +191,12 @@ public class Game
             {
                 player.addItemToInventory(itemToTake);
                 currentRoom.removeItem(itemToTake);
-                System.out.println("You picked up: " + itemToTake.getDetails());
+                System.out.println("Você pegou o item: " + itemToTake.getDetails());
             }
             else
             {
-                System.out.println("You can't carry " + itemToTake.getDescription() + ". It's too heavy!");
+                System.out.println("Você não pode pegar o item " + itemToTake.getDescription() + ".");
+                System.out.println("Capacidade máxima de itens alcançada.");
             }
 
         }
@@ -205,7 +206,7 @@ public class Game
     {
         if(!command.hasSecondWord())
         {
-            System.out.println("Drop what?");
+            System.out.println("Soltar o que?");
             return;
         }
 
@@ -224,13 +225,13 @@ public class Game
 
         if (itemToDrop == null)
         {
-            System.out.println("You don't have such an item!");
+            System.out.println("Você não tem esse item!");
         }
         else
         {
             player.getCurrentRoom().addItem(itemToDrop);
             player.removeItemFromInventory(itemToDrop);
-            System.out.println("You dropped: " + itemToDrop.getDetails());
+            System.out.println("Você soltou o item: " + itemToDrop.getDetails());
         }
     }
 
@@ -243,7 +244,7 @@ public class Game
         }
         else
         {
-            if(roomLog.empty()) System.out.println("You can't go back");
+            if(roomLog.empty()) System.out.println("Não há destino para retornar.");
             else
             {   
                 player.setCurrentRoom(roomLog.pop());

@@ -1,7 +1,7 @@
 public class CommandWords
 {
     private static final String[] validCommands = {
-        "viajar", "sair", "ajuda", "look", "usar", "back", "take", "drop", "items"
+        "viajar", "sair", "ajuda", "observar", "usar", "voltar", "pegar", "soltar", "itens"
     };
 
     public CommandWords()
@@ -25,8 +25,11 @@ public class CommandWords
         
         for(String commandWord : validCommands )
         {
-            commands.append(commandWord).append(" ");
+            commands.append(commandWord).append(", ");
         }
+        
+        commands.setLength(commands.length() - 2);
+        commands.append(".");
         
         return commands.toString().trim();
     }

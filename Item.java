@@ -2,13 +2,13 @@ public class Item
 {
     private String description;
     private double weight; 
-    
+
     public Item(String description, double weight)
     {
         this.description = description;
         this.weight = weight;
     }
-    
+
     public String getDescription()
     {
         return description;
@@ -18,9 +18,9 @@ public class Item
     {
         return weight;
     }
-    
+
     public String getDetails()
     {
-        return description + " (" + weight + "kg)";
+        return description + " (" + String.format("%.3f", weight) + "kg)";
     }
 }

@@ -10,7 +10,7 @@ public class Player
     {
         this.currentRoom = startingRoom;
         this.inventory = new ArrayList<>();
-        this.maxWeight = 10.0;
+        this.maxWeight = 1.0;
     }
 
     public Room getCurrentRoom()
@@ -42,10 +42,10 @@ public class Player
     {
         if (inventory.isEmpty())
         {
-            return "You inventory is empty.";
+            return "Você não possui nenhum item!";
         }
 
-        StringBuilder inventoryDescription = new StringBuilder("You are carrying:");
+        StringBuilder inventoryDescription = new StringBuilder("Itens com você:");
 
         for (Item item : inventory)
         {
@@ -54,7 +54,8 @@ public class Player
 
         inventoryDescription.setLength(inventoryDescription.length() - 1);
         inventoryDescription.append(".");
-        inventoryDescription.append("\nTotal weight: ").append(getCurrentWeight()).append("kg");
+        inventoryDescription.append("\n\nPeso carregado: ").append(String.format("%.3f", getCurrentWeight())).append("kg");
+        inventoryDescription.append("\nCapacidade total: ").append(String.format("%.3f", getMaxWeight())).append("kg");
 
         return inventoryDescription.toString();
     }

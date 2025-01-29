@@ -85,6 +85,8 @@ public class Game
         System.out.println("\nABIN (Agência Brasileira de Inteligência)");
         System.out.println("\nSeja bem vindo, Agente!\nVocê foi designado para uma missão...\n");
         System.out.println("Digite 'ajuda' se você precisar de ajuda.\n");
+        printLocationInfo();
+        System.out.println();
     }
 
     private boolean processCommand(Command command) 

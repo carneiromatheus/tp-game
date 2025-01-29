@@ -67,17 +67,17 @@ public class Room
             description.append(".");
         }
         
-        if(!npcs.isEmpty())
-        {
-            description.append("\n: ");
-            for (NPC npc: npcs) 
-            {
-                description.append(npc.getDetails()).append(", ");
-            }
+        // if(!npcs.isEmpty())
+        // {
+            // description.append("\n: ");
+            // for (NPC npc: npcs) 
+            // {
+                // description.append(npc.getDetails()).append(", ");
+            // }
             
-            description.setLength(description.length() - 2);
-            description.append(".");
-        }
+            // description.setLength(description.length() - 2);
+            // description.append(".");
+        // }
 
         description.append("\n").append(getExitString());
 

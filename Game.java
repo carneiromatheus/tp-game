@@ -424,7 +424,7 @@ public class Game
         {
             System.out.println("Você capturou a ladra iternacional Carmen Sandiego!");
             player.setCurrentRoom(Rooms.get(0));
-            look(command);
+            // look(command);
         }
         else if ((itemToUse.getDescription().equalsIgnoreCase("algemas") && (!(roomLog.peek() == Rooms.get(4)))))
         {

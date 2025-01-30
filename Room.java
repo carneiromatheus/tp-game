@@ -20,9 +20,22 @@ public class Room
         exits.put(direction, neighbor);
     }
     
+    public boolean npcExist(NPC npcToCheck)
+    {
+        for(NPC npc: npcs)
+        {
+            if(npcToCheck == npc) return true;
+        }
+        return false;
+    }
+    
     public void addNPC(NPC npc)
     {
-        npcs.add(npc);
+        if(npcExist(npc)) return;
+        else{
+            npcs.add(npc);
+        }
+        
     }
 
     public Room getExit(String direction)
@@ -67,17 +80,20 @@ public class Room
             description.append(".");
         }
         
-        // if(!npcs.isEmpty())
-        // {
-            // description.append("\n: ");
-            // for (NPC npc: npcs) 
-            // {
-                // description.append(npc.getDetails()).append(", ");
-            // }
+         if(!npcs.isEmpty())
+        {
+             description.append("\nAqui você pode ver:");
+             for (NPC npc: npcs) 
+             {
+                 description.append("\n\t- ").append(npc.getDetails()).append(", ");
+             }
             
-            // description.setLength(description.length() - 2);
-            // description.append(".");
-        // }
+             description.setLength(description.length() - 2);
+             description.append(".");
+        }
+        else{
+            description.append("\nAinda não há ninguem por aqui....\n:"); 
+        }
 
         description.append("\n").append(getExitString());
 

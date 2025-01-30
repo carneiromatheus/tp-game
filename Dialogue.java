@@ -18,16 +18,8 @@ public class Dialogue
     
     public void setDialogue()
     {
-        for(int i = speeches.size()-1; i >= 0; i--)
-        {
-            dialogue.push(speeches.get(i));
-        }
+        for(int i = speeches.size()-1; i >= 0; i--) dialogue.push(speeches.get(i));
     }
-    
-    /*public void setDialogue()
-    {
-        for(String speech: speeches) dialogue.push(speech);   
-    }*/
     
     public String getDialogue()
     {

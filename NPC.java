@@ -1,5 +1,4 @@
 
-import java.util.Stack;
 import java.util.ArrayList;
 
 public class NPC
@@ -24,13 +23,6 @@ public class NPC
         return name;
     }
     
-    /*public String getSpeech()
-    {
-        if(speechLog.isEmpty()) speechLog = logBackUp;
-        String speech = speechLog.pop();
-        return speech;
-    }
-    */
     public void setSpeech(String speech) 
     {
         speeches.add(speech);

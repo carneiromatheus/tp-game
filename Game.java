@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Game 
@@ -6,9 +7,13 @@ public class Game
     private Room currentRoom;
     private Stack<Room> roomLog;
     private Player player;
-
+    private ArrayList<Room> Rooms;
+    private NPC donaBeth, zeca, seuGenaro, beto, carmenSandiego, carlos;
+    private boolean finished;
+    
     public Game() 
     {
+        Rooms = new ArrayList<>();
         createRooms();
         parser = new Parser();
         roomLog = new Stack<>();
@@ -17,67 +22,103 @@ public class Game
 
     private void createRooms()
     {
-         NPC J;
         
-        J = new NPC("J","Agente da Agência Brasileira de Inteligência");
-        J.setSpeech("Eu conheço uma tal de Carma, o que deseja saber sobre ela?");
-        J.setSpeech("Acredito que ela tenha ido para o norte");
-        J.setSpeech("3");
-        J.setSpeech("4");
-        J.setSpeech("5");
-        J.setDialogue();
+        donaBeth = new NPC("Dona Beth","Uma simpática vendedora de queijos e doces caseiros");
+        donaBeth.setSpeech("Uai, meu filho, vi uma moça apressada comprando um colar artesanal");
+        donaBeth.setSpeech("Ela disse que ia para um lugar onde se come muito acarajé.");
+        donaBeth.setSpeech("Agora cê vê se descobre onde é, né?");
+        donaBeth.setDialogue();
+        
+        zeca = new NPC("Seu Zé", "Capoerista e Artista de Rua no Pelourinho");
+        zeca.setSpeech("Oxente! Vi essa moça sim, ela parecia com pressa.");
+        zeca.setSpeech("Ela ficou encantada com as flores e plantas daqui, disse que adora natureza.");
+        zeca.setSpeech("Antes de sair, comentou que queria visitar um lugar cheio de verde e bem famoso por suas estufas de vidro.");
+        zeca.setDialogue();
+        
+        seuGenaro = new NPC("Seu Genaro","Garçom de um Café em Copacabana");
+        seuGenaro.setSpeech("Atendi essa tal de Carmen");
+        seuGenaro.setSpeech("Ela estava com pressa e deixou cair este pedaço de papel.");
+        seuGenaro.setSpeech("""
+        
+        _______________
+        
+        AVENIDA SÃO P**
+        ________________
+        
+        """);
+        seuGenaro.setSpeech("Deve ser alguma pista sobre pra onde ela foi.");
+        seuGenaro.setDialogue();
+        
+        beto = new NPC("Beto","Motoboy de Encomendas Rápidas");
+        beto.setSpeech("Fiz uma entrega pra uma mulher com um chapéu vermelho.");
+        beto.setSpeech("O endereço ficava na rodovia BR-116.");
+        beto.setSpeech("Se eu fosse você, dava uma olhada lá.");
+        beto.setDialogue();
+        
+        carmenSandiego = new NPC("Carmen Sandiego", "Ladra internacional");
+        
+        carlos = new NPC("Agente Carlos", "Comandante ABIN");
+        carlos.setSpeech("Parabéns por capturar a Ladra Carmen Sandiego");
+        carlos.setSpeech("Obrigado, Agente. Até a próxima missão.");
+        
+        
         Room brasilia, salvador, beloHorizonte, saoPaulo, coritiba, rioDeJaneiro;
 
         brasilia = new Room("na sede da ABIN, em Brasília");
-        salvador = new Room("em Salvador, Bahia");
+        Rooms.add(brasilia);
         beloHorizonte = new Room("em Belo Horizonte, Minas Gerais");
-        saoPaulo = new Room("em São Paulo, capital");
-        coritiba = new Room("em Curitiba, Paraná");
+        Rooms.add(beloHorizonte);
+        salvador = new Room("em Salvador, Bahia");
+        Rooms.add(salvador);
         rioDeJaneiro = new Room("em Rio de Janeiro, capital");
-            
+        Rooms.add(rioDeJaneiro);  
+        saoPaulo = new Room("em São Paulo, capital");
+        Rooms.add(saoPaulo);
+        coritiba = new Room("em Curitiba, Paraná");
+        Rooms.add(coritiba);
+          
         
         brasilia.setExit("norte", salvador);
         brasilia.setExit("leste", beloHorizonte);
-        brasilia.addNPC(J);
         
-        salvador.setExit("oeste", brasilia);
-        salvador.setExit("sul", beloHorizonte);
-
         beloHorizonte.setExit("norte", salvador);
         beloHorizonte.setExit("leste", rioDeJaneiro);
         beloHorizonte.setExit("sul", saoPaulo);
-
+        
+        salvador.setExit("oeste", brasilia);
+        salvador.setExit("sul", beloHorizonte);
+        
+        rioDeJaneiro.setExit("oeste", beloHorizonte);
+        rioDeJaneiro.setExit("sul", saoPaulo);
+        
         saoPaulo.setExit("norte", beloHorizonte);
         saoPaulo.setExit("sul", coritiba);
 
         coritiba.setExit("norte", saoPaulo);
 
-        rioDeJaneiro.setExit("oeste", beloHorizonte);
-        rioDeJaneiro.setExit("sul", saoPaulo);
-
+        
         brasilia.addItem(new Item("arquivo da missão", 0.7));
         brasilia.addItem(new Item("mapa do Brasil", 0.35));
         brasilia.addItem(new Item("maleta", 1.0));
-
-        // saoPaulo.addItem(new Item("a mysterious book", 1.2));
-        // saoPaulo.addItem(new Item("a computer", 3.5));
-        // saoPaulo.addItem(new Item("a heavy box", 7.5));
-        // saoPaulo.addItem(new Item("a magic mushroom", 0.3));
-
+        brasilia.addItem(new Item("algemas", 2.0));
+        
         currentRoom = brasilia;
     }
-
+    private void setFinished()
+    {
+        finished = true;
+    }
+    
     public void play() 
     {            
         printWelcome();
 
-        boolean finished = false;
+        finished = false;
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
             System.out.println();
         }
-        System.out.println("Obrigado, Agente. Até a próxima missão.");
     }
 
     private void printWelcome()
@@ -173,6 +214,12 @@ public class Game
         } 
         else {
             roomLog.push(player.getCurrentRoom());
+            if(roomLog.peek() == Rooms.get(0)) Rooms.get(1).addNPC(donaBeth);   
+            if(roomLog.peek() == Rooms.get(1)) Rooms.get(2).addNPC(zeca);
+            if(roomLog.peek() == Rooms.get(2)) Rooms.get(3).addNPC(seuGenaro);
+            if(roomLog.peek() == Rooms.get(3)) Rooms.get(4).addNPC(beto);
+            if(roomLog.peek() == Rooms.get(4)) Rooms.get(5).addNPC(carmenSandiego);
+            if(roomLog.peek() == Rooms.get(5)) Rooms.get(0).addNPC(carlos);
             player.setCurrentRoom(nextRoom);
             printLocationInfo();
         }
@@ -370,8 +417,18 @@ public class Game
         else if (itemToUse.getDescription().equalsIgnoreCase("denúncia anônima"))
         {
             System.out.println("""
-            Em uma ligação telefônica foi informado que Carmen Sandiego estava
-            indo encontrar um soteropolitano.""");
+            Em uma ligação telefônica foi informado que carmen deseja encontrar um suspeito na terra onde o sol se põe entre as montanhas.
+            """);
+        }
+        else if ((itemToUse.getDescription().equalsIgnoreCase("algemas") && (roomLog.peek() == Rooms.get(4))))
+        {
+            System.out.println("Você capturou a ladra iternacional Carmen Sandiego!");
+            player.setCurrentRoom(Rooms.get(0));
+            look(command);
+        }
+        else if ((itemToUse.getDescription().equalsIgnoreCase("algemas") && (!(roomLog.peek() == Rooms.get(4)))))
+        {
+            System.out.print("Voce deve usar a algema para prender Carmen Sandiego!");
         }
         else
         {

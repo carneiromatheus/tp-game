@@ -1,16 +1,18 @@
-
 import java.util.ArrayList;
+import java.util.Stack;
 
-public class NPC
+public class Npc
 {
     private String description;
     private String name; 
-    private Dialogue speeches;
-    public NPC(String name, String description)
+    private ArrayList<String> speeches;
+    public Stack<String> dialogue;
+    public Npc(String name, String description)
     {
-         this.description = description;
-         this.name = name;
-         speeches = new Dialogue();
+        this.description = description;
+        this.name = name;
+        speeches  = new ArrayList<>(); 
+        dialogue = new Stack<>();
     }
     
     public String getDetails()
@@ -23,21 +25,25 @@ public class NPC
         return name;
     }
     
-    public void setSpeech(String speech) 
+    public void addSpeech(String speech)
     {
         speeches.add(speech);
     }
     
-    public String getSpeech()
-    {
-        String speech;
-        if(speeches.isEmpty()) speeches.setDialogue();
-        speech = speeches.getDialogue();
-        return speech;
-    }
     public void setDialogue()
     {
-        speeches.setDialogue();
+        for(int i = speeches.size()-1; i >= 0; i--) dialogue.push(speeches.get(i));
+    }
+    
+    public String getDialogue()
+    {
+        if(dialogue.isEmpty()) setDialogue();
+        return dialogue.pop();
+    }
+    
+    public boolean isEmpty()
+    {
+        return dialogue.isEmpty();
     }
     
 }

@@ -8,7 +8,7 @@ public class Game
     private Stack<Room> roomLog;
     private Player player;
     private ArrayList<Room> Rooms;
-    private NPC donaBeth, zeca, seuGenaro, beto, carmenSandiego, carlos;
+    private Npc donaBeth, zeca, seuGenaro, beto, carmenSandiego, carlos;
     private boolean finished;
     
     public Game() 
@@ -23,22 +23,22 @@ public class Game
     private void createRooms()
     {
         
-        donaBeth = new NPC("Dona Beth","Uma simpática vendedora de queijos e doces caseiros");
-        donaBeth.setSpeech("Uai, meu filho, vi uma moça apressada comprando um colar artesanal");
-        donaBeth.setSpeech("Ela disse que ia para um lugar onde se come muito acarajé.");
-        donaBeth.setSpeech("Agora cê vê se descobre onde é, né?");
+        donaBeth = new Npc("Dona Beth","Uma simpática vendedora de queijos e doces caseiros");
+        donaBeth.addSpeech("Uai, meu filho, vi uma moça apressada comprando um colar artesanal");
+        donaBeth.addSpeech("Ela disse que ia para um lugar onde se come muito acarajé.");
+        donaBeth.addSpeech("Agora cê vê se descobre onde é, né?");
         donaBeth.setDialogue();
         
-        zeca = new NPC("Seu Zé", "Capoerista e Artista de Rua no Pelourinho");
-        zeca.setSpeech("Oxente! Vi essa moça sim, ela parecia com pressa.");
-        zeca.setSpeech("Ela ficou encantada com as flores e plantas daqui, disse que adora natureza.");
-        zeca.setSpeech("Antes de sair, comentou que queria visitar um lugar cheio de verde e bem famoso por suas estufas de vidro.");
+        zeca = new Npc("Seu Zé", "Capoerista e Artista de Rua no Pelourinho");
+        zeca.addSpeech("Oxente! Vi essa moça sim, ela parecia com pressa.");
+        zeca.addSpeech("Ela ficou encantada com as flores e plantas daqui, disse que adora natureza.");
+        zeca.addSpeech("Antes de sair, comentou que queria visitar um lugar cheio de verde e bem famoso por suas estufas de vidro.");
         zeca.setDialogue();
         
-        seuGenaro = new NPC("Seu Genaro","Garçom de um Café em Copacabana");
-        seuGenaro.setSpeech("Atendi essa tal de Carmen");
-        seuGenaro.setSpeech("Ela estava com pressa e deixou cair este pedaço de papel.");
-        seuGenaro.setSpeech("""
+        seuGenaro = new Npc("Seu Genaro","Garçom de um Café em Copacabana");
+        seuGenaro.addSpeech("Atendi essa tal de Carmen");
+        seuGenaro.addSpeech("Ela estava com pressa e deixou cair este pedaço de papel.");
+        seuGenaro.addSpeech("""
         
         _______________
         
@@ -46,20 +46,20 @@ public class Game
         ________________
         
         """);
-        seuGenaro.setSpeech("Deve ser alguma pista sobre pra onde ela foi.");
+        seuGenaro.addSpeech("Deve ser alguma pista sobre pra onde ela foi.");
         seuGenaro.setDialogue();
         
-        beto = new NPC("Beto","Motoboy de Encomendas Rápidas");
-        beto.setSpeech("Fiz uma entrega pra uma mulher com um chapéu vermelho.");
-        beto.setSpeech("O endereço ficava na rodovia BR-116.");
-        beto.setSpeech("Se eu fosse você, dava uma olhada lá.");
+        beto = new Npc("Beto","Motoboy de Encomendas Rápidas");
+        beto.addSpeech("Fiz uma entrega pra uma mulher com um chapéu vermelho.");
+        beto.addSpeech("O endereço ficava na rodovia BR-116.");
+        beto.addSpeech("Se eu fosse você, dava uma olhada lá.");
         beto.setDialogue();
         
-        carmenSandiego = new NPC("Carmen Sandiego", "Ladra internacional");
+        carmenSandiego = new Npc("Carmen Sandiego", "Ladra internacional");
         
-        carlos = new NPC("Agente Carlos", "Comandante ABIN");
-        carlos.setSpeech("Parabéns por capturar a Ladra Carmen Sandiego");
-        carlos.setSpeech("Obrigado, Agente. Até a próxima missão.");
+        carlos = new Npc("Agente Carlos", "Comandante ABIN");
+        carlos.addSpeech("Parabéns por capturar a Ladra Carmen Sandiego");
+        carlos.addSpeech("Obrigado, Agente. Até a próxima missão.");
         
         
         Room brasilia, salvador, beloHorizonte, saoPaulo, coritiba, rioDeJaneiro;
@@ -186,11 +186,11 @@ public class Game
             String npcToTalk = command.getSecondWord();
             Room currentRoom = player.getCurrentRoom();
     
-            for (NPC npc: currentRoom.getNpcs())
+            for (Npc npc: currentRoom.getNpcs())
             {
                 if (npc.getName().equalsIgnoreCase(npcToTalk))
                 {
-                    System.out.print(npc.getSpeech());
+                    System.out.print(npc.getDialogue());
                     break;
                 }
                 else System.out.println("I dont know this person");

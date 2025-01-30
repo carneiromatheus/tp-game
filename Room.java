@@ -6,7 +6,7 @@ public class Room
     public String description;
     private HashMap<String, Room> exits;
     private ArrayList<Item> items;
-    private ArrayList<NPC> npcs;
+    private ArrayList<Npc> npcs;
     public Room(String description) 
     {
         this.description = description;
@@ -20,16 +20,16 @@ public class Room
         exits.put(direction, neighbor);
     }
     
-    public boolean npcExist(NPC npcToCheck)
+    public boolean npcExist(Npc npcToCheck)
     {
-        for(NPC npc: npcs)
+        for(Npc npc: npcs)
         {
             if(npcToCheck == npc) return true;
         }
         return false;
     }
     
-    public void addNPC(NPC npc)
+    public void addNPC(Npc npc)
     {
         if(npcExist(npc)) return;
         else{
@@ -58,7 +58,7 @@ public class Room
         return items;
     }
     
-    public ArrayList<NPC> getNpcs()
+    public ArrayList<Npc> getNpcs()
     {
         return npcs;
     }
@@ -83,7 +83,7 @@ public class Room
          if(!npcs.isEmpty())
         {
              description.append("\nAqui você pode ver:");
-             for (NPC npc: npcs) 
+             for (Npc npc: npcs) 
              {
                  description.append("\n\t- ").append(npc.getDetails()).append(", ");
              }

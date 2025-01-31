@@ -150,7 +150,7 @@ public class Game
         else if (commandWord.equals("pegar")) take(command);
         else if (commandWord.equals("soltar")) drop(command);
         else if (commandWord.equals("itens")) items(command);
-        else if (commandWord.equals("talk")) talk(command);
+        else if (commandWord.equals("conversar")) talk(command);
 
         return wantToQuit;
     }
@@ -424,7 +424,7 @@ public class Game
         {
             System.out.println("Você capturou a ladra iternacional Carmen Sandiego!");
             player.setCurrentRoom(Rooms.get(0));
-            look(command);
+            // look(command);
         }
         else if ((itemToUse.getDescription().equalsIgnoreCase("algemas") && (!(roomLog.peek() == Rooms.get(4)))))
         {

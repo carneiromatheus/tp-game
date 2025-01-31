@@ -1,7 +1,7 @@
 public class CommandWords
 {
     private static final String[] validCommands = {
-        "viajar", "sair", "ajuda", "observar", "usar", "voltar", "pegar", "soltar", "itens", "talk"
+        "viajar", "sair", "ajuda", "observar", "usar", "voltar", "pegar", "soltar", "itens", "conversar"
     };
 
     public CommandWords()
